@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" BorderPane.alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/11.0.1">
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User Info" styleClass="page-title"/>
+    <FlowPane>
+        <Button mnemonicParsing="false" text="Back" onAction="#handleBackBtnAction"/>
+        <Button mnemonicParsing="false" text="Edit"/>
+    </FlowPane>
+    <GridPane>
+        <Label text="Profile Picture"/>
+        <Label text="User ID" GridPane.rowIndex="1"/>
+        <Label text="First Name" GridPane.rowIndex="2"/>
+        <Label text="Last Name" GridPane.rowIndex="3"/>
+        <Label text="Email" GridPane.rowIndex="4"/>
+        <Label text="ID Number" GridPane.rowIndex="5"/>
+        <Label text="ID Type" GridPane.rowIndex="6"/>
+        <Label text="Role" GridPane.rowIndex="7"/>
+        <Label text="Status" GridPane.rowIndex="8"/>
+        <Label text="Created By" GridPane.rowIndex="9"/>
+        <Label text="Created On" GridPane.rowIndex="10"/>
+        <ImageView fx:id="profilePicView" fitHeight="200.0" fitWidth="200.0" preserveRatio="true"
+                   GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Text fx:id="userIdTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1"
+              GridPane.rowIndex="1"/>
+        <Text fx:id="firstNameTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1"
+              GridPane.rowIndex="2"/>
+        <Text fx:id="lastNameTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1"
+              GridPane.rowIndex="3"/>
+        <Text fx:id="emailTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1"
+              GridPane.rowIndex="4"/>
+        <Text fx:id="idNumberTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1"
+              GridPane.rowIndex="5"/>
+        <Text fx:id="idTypeTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1"
+              GridPane.rowIndex="6"/>
+        <Text fx:id="roleTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1"
+              GridPane.rowIndex="7"/>
+        <Text fx:id="statusTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1"
+              GridPane.rowIndex="8"/>
+        <Text fx:id="createdByUserNameTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1"
+              GridPane.rowIndex="9"/>
+        <Text fx:id="createdOnTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1"
+              GridPane.rowIndex="10"/>
+    </GridPane>
+</VBox>

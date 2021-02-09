@@ -1,0 +1,9 @@
+.sidebar {
+    -fx-background-color: #DEDEFF;
+}
+
+.page-title {
+    -fx-font-family: "serif";
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+}

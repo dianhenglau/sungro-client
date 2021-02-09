@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="576.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1">
+    <left>
+        <VBox prefWidth="150.0" styleClass="sidebar" BorderPane.alignment="TOP_LEFT">
+            <ImageView fx:id="profilePicView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true"
+                       preserveRatio="true"/>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text"/>
+            <Button maxWidth="Infinity" mnemonicParsing="false" text="Profile"/>
+            <Button maxWidth="Infinity" mnemonicParsing="false" text="Log out"/>
+            <Region prefHeight="10.0" prefWidth="0.0"/>
+            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#handleUsersBtnAction" text="Users"/>
+            <Button maxWidth="Infinity" mnemonicParsing="false" text="Products"/>
+            <Button maxWidth="Infinity" mnemonicParsing="false" text="Stock"/>
+            <Button maxWidth="Infinity" mnemonicParsing="false" text="Sales"/>
+        </VBox>
+    </left>
+    <center>
+        <StackPane fx:id="stackPane" BorderPane.alignment="CENTER"/>
+    </center>
+</BorderPane>
