@@ -19,6 +19,8 @@ public class Router {
     private final Parent userInfoRoot;
     private final UserAdding userAdding;
     private final Parent userAddingRoot;
+    private final UserEditing userEditing;
+    private final Parent userEditingRoot;
 
     public Router(Repo repo) throws IOException {
         this.repo = repo;
@@ -43,9 +45,15 @@ public class Router {
         userAddingLoader.setController(userAdding);
         userAddingRoot = userAddingLoader.load();
 
+        userEditing = new UserEditing(this);
+        FXMLLoader userEditingLoader = new FXMLLoader(getClass().getResource("UserEditing.fxml"));
+        userEditingLoader.setController(userEditing);
+        userEditingRoot = userEditingLoader.load();
+
         layout.addNode(userListingRoot);
         layout.addNode(userInfoRoot);
         layout.addNode(userAddingRoot);
+        layout.addNode(userEditingRoot);
 
         scene = new Scene(layoutRoot);
         scene.getStylesheets().add("app.css");
@@ -89,5 +97,13 @@ public class Router {
 
     public Parent getUserAddingRoot() {
         return userAddingRoot;
+    }
+
+    public UserEditing getUserEditing() {
+        return userEditing;
+    }
+
+    public Parent getUserEditingRoot() {
+        return userEditingRoot;
     }
 }

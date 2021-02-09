@@ -113,7 +113,21 @@ public class UserListing {
 
     @FXML
     protected void handleEditBtnAction() {
+        User user = tableView.getSelectionModel().getSelectedItem();
 
+        if (user == null) {
+            new Alert(Alert.AlertType.ERROR, "No item selected").showAndWait();
+            return;
+        }
+
+        ParamForGetOneUser param = new ParamForGetOneUser();
+        param.setSessionId("0123456789abcdef");
+        param.setUserId(user.getUserId());
+
+        if (router.getUserEditing().render(param)) {
+            router.getUserListingRoot().setVisible(false);
+            router.getUserEditingRoot().setVisible(true);
+        }
     }
 
     @FXML
