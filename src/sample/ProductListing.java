@@ -6,25 +6,23 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import sungro.api.ParamForGetManyUsers;
-import sungro.api.ParamForGetOneUser;
-import sungro.api.ResultForGetManyUsers;
+import sungro.api.ParamForGetManyProducts;
+import sungro.api.ParamForGetOneProduct;
+import sungro.api.ResultForGetManyProducts;
 
 import java.rmi.RemoteException;
 
-public class UserListing {
+public class ProductListing {
     private final Router router;
 
     @FXML
     private TextField nameInput;
     @FXML
     private TextField categoryInput;
-
-//    private TextField idNumberInput;
     @FXML
     private ChoiceBox<String> statusInput;
     @FXML
-    private TableView<User> tableView;
+    private TableView<Product> tableView;
     @FXML
     private Text currentPageTxt;
     @FXML
@@ -32,13 +30,13 @@ public class UserListing {
     @FXML
     private TextField pageInput;
 
-    public UserListing(Router router) {
+    public ProductListing(Router router) {
         this.router = router;
     }
 
-    public boolean render(ParamForGetManyUsers param) {
+    public boolean render(ParamForGetManyProducts param) {
         try {
-            ResultForGetManyUsers result = router.getRepo().getManyUsers(param);
+            ResultForGetManyProducts result = router.getRepo().getManyProducts(param);
 
             switch (result.getStatus()) {
                 case SERVER_ERROR:
@@ -52,8 +50,8 @@ public class UserListing {
             }
 
             tableView.getItems().clear();
-            for (sungro.api.User user : result.getUsers()) {
-                tableView.getItems().add(new User(user));
+            for (sungro.api.Product product : result.getProducts()) {
+                tableView.getItems().add(new Product(product));
             }
 
             currentPageTxt.setText(String.valueOf(result.getCurrentPage()));
@@ -67,24 +65,24 @@ public class UserListing {
         }
     }
 
-    public ParamForGetManyUsers generateParam() {
-        ParamForGetManyUsers param = new ParamForGetManyUsers();
+    public ParamForGetManyProducts generateParam() {
+        ParamForGetManyProducts param = new ParamForGetManyProducts();
 
         param.setSessionId("0123456789abcdef");
         param.setName(nameInput.getText());
-        param.setEmail(categoryInput.getText());
+//        param.setEmail(categoryInput.getText());
 //        param.setIdNumber(idNumberInput.getText());
-        param.setRole(statusInput.getValue());
+//        param.setRole(statusInput.getValue());
         param.setPage(Integer.parseInt(currentPageTxt.getText().trim()));
 
         return param;
     }
 
     @FXML
-    protected void handleAddUserBtnAction() {
-        router.getUserAdding().render();
-        router.getUserListingRoot().setVisible(false);
-        router.getUserAddingRoot().setVisible(true);
+    protected void handleAddProductBtnAction() {
+        router.getProductAdding().render();
+        router.getProductListingRoot().setVisible(false);
+        router.getProductAddingRoot().setVisible(true);
     }
 
     @FXML
@@ -94,40 +92,40 @@ public class UserListing {
 
     @FXML
     protected void handleViewBtnAction() {
-        User user = tableView.getSelectionModel().getSelectedItem();
+        Product product = tableView.getSelectionModel().getSelectedItem();
 
-        if (user == null) {
+        if (product == null) {
             new Alert(Alert.AlertType.ERROR, "No item selected").showAndWait();
             return;
         }
 
-        ParamForGetOneUser param = new ParamForGetOneUser();
+        ParamForGetOneProduct param = new ParamForGetOneProduct();
         param.setSessionId("0123456789abcdef");
-        param.setUserId(user.getUserId());
+        param.setProductId(product.getProductId());
 
-        if (router.getUserInfo().render(param)) {
-            router.getUserListingRoot().setVisible(false);
-            router.getUserInfoRoot().setVisible(true);
-        }
+//        if (router.getProductInfo().render(param)) {
+//            router.getProductListingRoot().setVisible(false);
+//            router.getProductInfoRoot().setVisible(true);
+//        }
     }
 
     @FXML
     protected void handleEditBtnAction() {
-        User user = tableView.getSelectionModel().getSelectedItem();
+        Product product = tableView.getSelectionModel().getSelectedItem();
 
-        if (user == null) {
+        if (product == null) {
             new Alert(Alert.AlertType.ERROR, "No item selected").showAndWait();
             return;
         }
 
-        ParamForGetOneUser param = new ParamForGetOneUser();
+        ParamForGetOneProduct param = new ParamForGetOneProduct();
         param.setSessionId("0123456789abcdef");
-        param.setUserId(user.getUserId());
+        param.setProductId(product.getProductId());
 
-        if (router.getUserEditing().render(param)) {
-            router.getUserListingRoot().setVisible(false);
-            router.getUserEditingRoot().setVisible(true);
-        }
+//        if (router.getProductEditing().render(param)) {
+//            router.getProductListingRoot().setVisible(false);
+//            router.getProductEditingRoot().setVisible(true);
+//        }
     }
 
     @FXML
@@ -137,7 +135,7 @@ public class UserListing {
 
     @FXML
     protected void handlePrevBtnAction() {
-        ParamForGetManyUsers param = generateParam();
+        ParamForGetManyProducts param = generateParam();
 
         param.setPage(param.getPage() - 1);
         if (param.getPage() < 1) {
@@ -149,7 +147,7 @@ public class UserListing {
 
     @FXML
     protected void handleNextBtnAction() {
-        ParamForGetManyUsers param = generateParam();
+        ParamForGetManyProducts param = generateParam();
 
         param.setPage(param.getPage() + 1);
 
@@ -158,7 +156,7 @@ public class UserListing {
 
     @FXML
     protected void handlePageInputAction() {
-        ParamForGetManyUsers param = generateParam();
+        ParamForGetManyProducts param = generateParam();
 
         try {
             param.setPage(Integer.parseInt(pageInput.getText().trim()));

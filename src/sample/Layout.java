@@ -36,4 +36,28 @@ public class Layout {
 
         router.getUserListingRoot().setVisible(true);
     }
+    @FXML
+    protected void handleProductBtnAction() {
+        for (Node node : stackPane.getChildren()) {
+            node.setVisible(false);
+        }
+
+        router.getProductListingRoot().setVisible(true);
+    }
+    @FXML
+    protected void handleStockBtnAction() {
+        for (Node node : stackPane.getChildren()) {
+            node.setVisible(false);
+        }
+
+        router.getStockListingRoot().setVisible(true);
+    }
+    @FXML
+    protected void handleSalesBtnAction() {
+        for (Node node : stackPane.getChildren()) {
+            node.setVisible(false);
+        }
+
+        router.getSalesListingRoot().setVisible(true);
+    }
 }

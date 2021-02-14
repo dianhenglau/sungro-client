@@ -16,9 +16,9 @@
             <Button maxWidth="Infinity" mnemonicParsing="false" text="Log out"/>
             <Region prefHeight="10.0" prefWidth="0.0"/>
             <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#handleUsersBtnAction" text="Users"/>
-            <Button maxWidth="Infinity" mnemonicParsing="false" text="Products"/>
-            <Button maxWidth="Infinity" mnemonicParsing="false" text="Stock"/>
-            <Button maxWidth="Infinity" mnemonicParsing="false" text="Sales"/>
+            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#handleProductBtnAction" text="Products"/>
+            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#handleStockBtnAction" text="Stock"/>
+            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#handleSalesBtnAction" text="Sales"/>
         </VBox>
     </left>
     <center>

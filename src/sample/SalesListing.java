@@ -12,7 +12,7 @@ import sungro.api.ResultForGetManyUsers;
 
 import java.rmi.RemoteException;
 
-public class UserListing {
+public class SalesListing {
     private final Router router;
 
     @FXML
@@ -20,7 +20,7 @@ public class UserListing {
     @FXML
     private TextField categoryInput;
 
-//    private TextField idNumberInput;
+    //    private TextField idNumberInput;
     @FXML
     private ChoiceBox<String> statusInput;
     @FXML
@@ -32,7 +32,7 @@ public class UserListing {
     @FXML
     private TextField pageInput;
 
-    public UserListing(Router router) {
+    public SalesListing(Router router) {
         this.router = router;
     }
 
