@@ -54,7 +54,7 @@ public class ProductAdding {
 
     @FXML
     protected void handleBackBtnAction() {
-        router.getUserAddingRoot().setVisible(false);
+        router.getProductAddingRoot().setVisible(false);
         router.getUserListingRoot().setVisible(true);
     }
 

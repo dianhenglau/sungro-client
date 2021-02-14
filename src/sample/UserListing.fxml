@@ -15,13 +15,15 @@
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filter"/>
         <Label text="Name"/>
         <TextField fx:id="nameInput"/>
-        <Label text="Category"/>
-        <TextField fx:id="categoryInput"/>
-        <Label text="Status"/>
-        <ChoiceBox fx:id="statusInput" value="">
-            <String fx:value="All"/>
-            <String fx:value="Available"/>
-            <String fx:value="Disabled"/>
+        <Label text="Email"/>
+        <TextField fx:id="emailInput"/>
+        <Label text="ID Number"/>
+        <TextField fx:id="idNumberInput"/>
+        <Label text="Role"/>
+        <ChoiceBox fx:id="roleInput" value="">
+            <String fx:value=""/>
+            <String fx:value="Admin"/>
+            <String fx:value="Sales Executive"/>
         </ChoiceBox>
         <Button mnemonicParsing="false" text="Go" onAction="#handleGoBtnAction"/>
     </FlowPane>
@@ -33,41 +35,41 @@
     </FlowPane>
     <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
         <columns>
-            <TableColumn editable="false" sortable="false" text="Product ID">
+            <TableColumn editable="false" sortable="false" text="User ID">
                 <cellValueFactory>
-                    <PropertyValueFactory property="productId"/>
+                    <PropertyValueFactory property="userId"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn editable="false" sortable="false" text="Picture">
+            <TableColumn editable="false" sortable="false" text="First Name">
                 <cellValueFactory>
-                    <PropertyValueFactory property="picture"/>
+                    <PropertyValueFactory property="firstName"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn editable="false" sortable="false" text="Name">
+            <TableColumn editable="false" sortable="false" text="Last Name">
                 <cellValueFactory>
-                    <PropertyValueFactory property="Name"/>
+                    <PropertyValueFactory property="lastName"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn editable="false" sortable="false" text="Category">
+            <TableColumn editable="false" sortable="false" text="Email">
                 <cellValueFactory>
-                    <PropertyValueFactory property="category"/>
+                    <PropertyValueFactory property="email"/>
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn editable="false" sortable="false" text="Price">
+            <TableColumn editable="false" sortable="false" text="ID Number">
                 <cellValueFactory>
-                    <PropertyValueFactory property="price"/>
+                    <PropertyValueFactory property="idNumber"/>
                 </cellValueFactory>
             </TableColumn>
-<!--            <TableColumn editable="false" sortable="false" text="ID Type">-->
-<!--                <cellValueFactory>-->
-<!--                    <PropertyValueFactory property="idType"/>-->
-<!--                </cellValueFactory>-->
-<!--            </TableColumn>-->
-<!--            <TableColumn editable="false" sortable="false" text="Role">-->
-<!--                <cellValueFactory>-->
-<!--                    <PropertyValueFactory property="role"/>-->
-<!--                </cellValueFactory>-->
-<!--            </TableColumn>-->
+            <TableColumn editable="false" sortable="false" text="ID Type">
+                <cellValueFactory>
+                    <PropertyValueFactory property="idType"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" sortable="false" text="Role">
+                <cellValueFactory>
+                    <PropertyValueFactory property="role"/>
+                </cellValueFactory>
+            </TableColumn>
             <TableColumn editable="false" sortable="false" text="Status">
                 <cellValueFactory>
                     <PropertyValueFactory property="status"/>

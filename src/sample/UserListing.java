@@ -18,11 +18,11 @@ public class UserListing {
     @FXML
     private TextField nameInput;
     @FXML
-    private TextField categoryInput;
-
-//    private TextField idNumberInput;
+    private TextField emailInput;
     @FXML
-    private ChoiceBox<String> statusInput;
+    private TextField idNumberInput;
+    @FXML
+    private ChoiceBox<String> roleInput;
     @FXML
     private TableView<User> tableView;
     @FXML
@@ -38,7 +38,7 @@ public class UserListing {
 
     public boolean render(ParamForGetManyUsers param) {
         try {
-            ResultForGetManyUsers result = router.getRepo().getManyUsers(param);
+            ResultForGetManyUsers result = router.getRepo().getManyUsers(param); //collect user information from server
 
             switch (result.getStatus()) {
                 case SERVER_ERROR:
@@ -53,7 +53,7 @@ public class UserListing {
 
             tableView.getItems().clear();
             for (sungro.api.User user : result.getUsers()) {
-                tableView.getItems().add(new User(user));
+                tableView.getItems().add(new User(user)); // put the information via (for loop)
             }
 
             currentPageTxt.setText(String.valueOf(result.getCurrentPage()));
@@ -72,9 +72,9 @@ public class UserListing {
 
         param.setSessionId("0123456789abcdef");
         param.setName(nameInput.getText());
-        param.setEmail(categoryInput.getText());
-//        param.setIdNumber(idNumberInput.getText());
-        param.setRole(statusInput.getValue());
+        param.setEmail(emailInput.getText());
+        param.setIdNumber(idNumberInput.getText());
+        param.setRole(roleInput.getValue());
         param.setPage(Integer.parseInt(currentPageTxt.getText().trim()));
 
         return param;
