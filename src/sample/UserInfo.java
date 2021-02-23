@@ -91,4 +91,16 @@ public class UserInfo {
         router.getUserInfoRoot().setVisible(false);
         router.getUserListingRoot().setVisible(true);
     }
+
+    @FXML
+    protected void handleEditBtnAction() {
+        ParamForGetOneUser param = new ParamForGetOneUser();
+        param.setSessionId("0123456789abcdef");
+        param.setUserId(Integer.parseInt(userIdTxt.getText()));
+
+        if (router.getUserEditing().render(param)) {
+            router.getUserInfoRoot().setVisible(false);
+            router.getUserEditingRoot().setVisible(true);
+        }
+    }
 }
