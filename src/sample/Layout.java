@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import sungro.api.ParamForGetCurrentUser;
 
 public class Layout {
     private final Router router;
@@ -63,5 +64,16 @@ public class Layout {
 
         router.getSalesListing().render(router.getSalesListing().generateParam());
         router.getSalesListingRoot().setVisible(true);
+    }
+    @FXML
+    protected void handleProfileBtnAction() {
+        for (Node node : stackPane.getChildren()) {
+            node.setVisible(false);
+        }
+
+        ParamForGetCurrentUser param = new ParamForGetCurrentUser();
+        param.setSessionId("0123456789abcdef");
+        router.getProfile().render(param);
+        router.getProfileRoot().setVisible(true);
     }
 }

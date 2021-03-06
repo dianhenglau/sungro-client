@@ -45,6 +45,9 @@ public class Router {
     private final SalesAdding salesAdding;
     private final Parent salesAddingRoot;
 
+    private final Profile profile;
+    private final Parent profileRoot;
+
     public Router(Repo repo) throws IOException {
         this.repo = repo;
 
@@ -130,10 +133,17 @@ public class Router {
 
 
         /*User*/
+        profile = new Profile(this);
+        FXMLLoader profileLoader = new FXMLLoader(getClass().getResource("Profile.fxml"));
+        profileLoader.setController(profile);
+        profileRoot = profileLoader.load();
+
         layout.addNode(userListingRoot);
         layout.addNode(userInfoRoot);
         layout.addNode(userAddingRoot);
         layout.addNode(userEditingRoot);
+        layout.addNode(profileRoot);
+
 
         /*Product*/
         layout.addNode(productListingRoot);
@@ -287,4 +297,12 @@ public class Router {
         return salesAddingRoot;
     }
 
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public Parent getProfileRoot() {
+        return profileRoot;
+    }
 }

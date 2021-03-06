@@ -8,7 +8,7 @@
     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User Info" styleClass="page-title"/>
     <FlowPane>
         <Button mnemonicParsing="false" text="Back" onAction="#handleBackBtnAction"/>
-        <Button mnemonicParsing="false" text="Edit"/>
+        <Button mnemonicParsing="false" text="Edit" onAction="#handleEditBtnAction"/>
     </FlowPane>
     <GridPane>
         <Label text="Profile Picture"/>
