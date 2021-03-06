@@ -1,7 +1,10 @@
 package sample;
 
 import javafx.beans.property.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
+import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -9,8 +12,8 @@ public class Product {
     private final IntegerProperty productId;
     private final StringProperty name;
     private final StringProperty category;
-    private final StringProperty productPrice;
-    private ObjectProperty<byte[]> productPic;
+    private final ObjectProperty<BigDecimal> productPrice;
+    private final ObjectProperty<ImageView> productPic;
     private final StringProperty status;
     private final IntegerProperty createdByUserId;
     private final StringProperty createdByUserName;
@@ -20,8 +23,8 @@ public class Product {
         productId = new SimpleIntegerProperty();
         name = new SimpleStringProperty();
         category = new SimpleStringProperty();
-        productPrice = new SimpleStringProperty();
-        productPic = new SimpleObjectProperty<>(new byte[0]);
+        productPrice = new SimpleObjectProperty<>(BigDecimal.valueOf(0, 2));
+        productPic = new SimpleObjectProperty<>(new ImageView());
         status = new SimpleStringProperty();
         createdByUserId = new SimpleIntegerProperty();
         createdByUserName = new SimpleStringProperty();
@@ -33,8 +36,9 @@ public class Product {
         productId = new SimpleIntegerProperty(product.getProductId());
         name = new SimpleStringProperty(product.getName());
         category = new SimpleStringProperty(product.getCategory());
-        productPrice = new SimpleStringProperty(String.valueOf(product.getProductPrice()));
-        productPic = new SimpleObjectProperty<>(new byte[0]);
+        productPrice = new SimpleObjectProperty<>(product.getProductPrice());
+        productPic = new SimpleObjectProperty<>(new ImageView(
+                new Image(new ByteArrayInputStream(product.getProductPic()),100,100,true,false)));
         status = new SimpleStringProperty(product.getStatus());
         createdByUserId = new SimpleIntegerProperty(product.getCreatedByUserId());
         createdByUserName = new SimpleStringProperty(product.getCreatedByUserName());
@@ -77,27 +81,27 @@ public class Product {
         this.category.set(category);
     }
 
-    public String getProductPrice() {
+    public BigDecimal getProductPrice() {
         return productPrice.get();
     }
 
-    public StringProperty productPriceProperty() {
+    public ObjectProperty<BigDecimal> productPriceProperty() {
         return productPrice;
     }
 
-    public void setProductPrice(String productPrice) {
+    public void setProductPrice(BigDecimal productPrice) {
         this.productPrice.set(productPrice);
     }
 
-    public byte[] getProductPic() {
+    public ImageView getProductPic() {
         return productPic.get();
     }
 
-    public ObjectProperty<byte[]> productPicProperty() {
+    public ObjectProperty<ImageView> productPicProperty() {
         return productPic;
     }
 
-    public void setProductPic(byte[] productPic) {
+    public void setProductPic(ImageView productPic) {
         this.productPic.set(productPic);
     }
 

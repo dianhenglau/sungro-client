@@ -6,10 +6,11 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import sungro.api.ParamForAddProduct;
-import sungro.api.ResultForAddProduct;
+import sungro.api.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -17,13 +18,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.rmi.RemoteException;
 
-public class ProductAdding {
+public class ProductEditing {
     private final Router router;
 
     @FXML
     private ImageView productPicView;
     @FXML
     private TextField productPicInput;
+    @FXML
+    private Text productIdTxt;
     @FXML
     private TextField productNameInput;
     @FXML
@@ -33,53 +36,77 @@ public class ProductAdding {
     @FXML
     private ChoiceBox<String> statusInput;
 
-
-
-    public ProductAdding(Router router) {
+    public ProductEditing(Router router) {
         this.router = router;
     }
 
+    public boolean render(ParamForGetOneProduct param) {
+        try {
+            ResultForGetOneProduct result = router.getRepo().getOneProduct(param);
 
-    public boolean render() {
-        productPicView.setImage(new Image("profile.png"));
-        productPicInput.setText("");
-        productNameInput.setText("");
+            switch (result.getStatus()) {
+                case SERVER_ERROR:
+                    new Alert(Alert.AlertType.ERROR, "Server error. It's not your fault.").showAndWait();
+                    return false;
+                case INVALID_SESSION_ID:
+                    new Alert(Alert.AlertType.ERROR, "Invalid session ID. Please login again.").showAndWait();
+                    return false;
+                case NOT_FOUND:
+                    new Alert(Alert.AlertType.ERROR, "User not found").showAndWait();
+                    return false;
+                case SUCCESS:
+                    break;
+            }
 
-        categoryInput.setValue(categoryInput.getItems().get(0));
-        statusInput.setValue(statusInput.getItems().get(0));
-        priceInput.setText("");
+            sungro.api.Product product = result.getProduct();
 
-        return true;
+//            if (product.getProductPic().length == 0) {
+//                productPicView.setImage(new Image("profile.png"));
+//            } else {
+//                productPicView.setImage(new Image(new ByteArrayInputStream(product.getProductPic())));
+//            }
+
+            productIdTxt.setText(String.valueOf(product.getProductId()));
+            productNameInput.setText(product.getName());
+            categoryInput.setValue(product.getCategory());
+            priceInput.setText(String.valueOf(product.getProductPrice()));
+
+            return true;
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     @FXML
     protected void handleBackBtnAction() {
-        router.getProductAddingRoot().setVisible(false);
+        router.getProductEditingRoot().setVisible(false);
         router.getProductListingRoot().setVisible(true);
     }
 
     @FXML
     protected void handleSaveBtnAction() {
 
-        ParamForAddProduct param = new ParamForAddProduct();
+        ParamForSetProduct param = new ParamForSetProduct();
         param.setSessionId("0123456789abcdef");
+        param.setProductId(Integer.parseInt(productIdTxt.getText()));
         param.setName(productNameInput.getText());
         param.setCategory(categoryInput.getValue());
+        param.setProductPrice(new BigDecimal(priceInput.getText()));
         param.setStatus(statusInput.getValue());
-        param.setProductPrice(new BigDecimal (priceInput.getText()));
 
-
-        if (!productPicInput.getText().isEmpty()) {
-            try {
-                param.setProductPic(Files.readAllBytes(Paths.get(productPicInput.getText())));
-            } catch (IOException e) {
-                e.printStackTrace();
-                return;
-            }
-        }
+//        if (!productPicInput.getText().isEmpty()) {
+//            try {
+//                param.setProductPic(Files.readAllBytes(Paths.get(productPicInput.getText())));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                return;
+//            }
+//        }
 
         try {
-            ResultForAddProduct result = router.getRepo().addProduct(param);
+            ResultForSetProduct result = router.getRepo().setProduct(param);
 
             switch (result.getStatus()) {
                 case INVALID_SESSION_ID:
@@ -88,17 +115,20 @@ public class ProductAdding {
                 case SERVER_ERROR:
                     new Alert(Alert.AlertType.ERROR, "Server error. It's not your fault.").showAndWait();
                     return;
+                case NOT_FOUND:
+                    new Alert(Alert.AlertType.ERROR, "User not found.").showAndWait();
+                    return;
                 case MISSING_NAME:
                     new Alert(Alert.AlertType.ERROR, "Name is required.").showAndWait();
                     return;
                 case REPEATED_NAME:
-                    new Alert(Alert.AlertType.ERROR, "Name is repeated.").showAndWait();
+                    new Alert(Alert.AlertType.ERROR, "This name has been used.").showAndWait();
                     return;
                 case MISSING_CATEGORY:
                     new Alert(Alert.AlertType.ERROR, "Category is required.").showAndWait();
                     return;
-                case  INVALID_CATEGORY:
-                    new Alert(Alert.AlertType.ERROR, "Invalid category.").showAndWait();
+                case INVALID_CATEGORY:
+                    new Alert(Alert.AlertType.ERROR, "Invalid category format.").showAndWait();
                     return;
                 case MISSING_PRODUCT_PRICE:
                     new Alert(Alert.AlertType.ERROR, "Product price is required.").showAndWait();
@@ -113,12 +143,12 @@ public class ProductAdding {
                     new Alert(Alert.AlertType.ERROR, "Invalid status.").showAndWait();
                     return;
                 case SUCCESS:
-                    new Alert(Alert.AlertType.INFORMATION, "New product item added.").showAndWait();
+                    new Alert(Alert.AlertType.INFORMATION, "User updated.").showAndWait();
                     break;
             }
 
             router.getProductListing().render(router.getProductListing().generateParam());
-            router.getProductAddingRoot().setVisible(false);
+            router.getProductEditingRoot().setVisible(false);
             router.getProductListingRoot().setVisible(true);
 
         } catch (RemoteException e) {

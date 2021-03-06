@@ -13,12 +13,15 @@ public class Stock {
     private final StringProperty productName;
     private final StringProperty productCategory;
     private final ObjectProperty<BigDecimal> productPrice;
-    private final ObjectProperty<byte[]> productPic;
+//    private final ObjectProperty<byte[]> productPic;
     private final IntegerProperty quantity;
     private final ObjectProperty<LocalDate> expiryDate;
     private final IntegerProperty createdByUserId;
     private final StringProperty createdByUserName;
     private final ObjectProperty<LocalDateTime> createdOn;
+    private final StringProperty sessionId;
+//    private final IntegerProperty quantityVaried;
+//    private final StringProperty remark;
 
     public Stock() {
         sku = new SimpleStringProperty();
@@ -26,25 +29,30 @@ public class Stock {
         productName = new SimpleStringProperty();
         productCategory = new SimpleStringProperty();
         productPrice = new SimpleObjectProperty<>(BigDecimal.valueOf(0, 2));
-        productPic = new SimpleObjectProperty<>();
+//        productPic = new SimpleObjectProperty<>();
         quantity = new SimpleIntegerProperty();
         expiryDate = new SimpleObjectProperty<>(LocalDate.of(1970, 1, 1));
         createdByUserId = new SimpleIntegerProperty();
         createdByUserName = new SimpleStringProperty();
         createdOn = new SimpleObjectProperty<>(LocalDateTime.of(1970, 1, 1, 0, 0, 0));
+        sessionId = new SimpleStringProperty();
+//        quantityVaried = new SimpleIntegerProperty();
+//        remark = new SimpleStringProperty();
     }
+
     public Stock (sungro.api.Stock stock){
         sku = new SimpleStringProperty(stock.getSku());
         productId = new SimpleIntegerProperty(stock.getProductId());
         productName = new SimpleStringProperty(stock.getProductName());
         productCategory = new SimpleStringProperty(stock.getProductCategory());
         productPrice = new SimpleObjectProperty<>(stock.getProductPrice());
-        productPic = new SimpleObjectProperty<>(stock.getProductPic());
+//        productPic = new SimpleObjectProperty<>(stock.getProductPic());
         quantity = new SimpleIntegerProperty(stock.getQuantity());
         expiryDate = new SimpleObjectProperty<>(stock.getExpiryDate());
         createdByUserId = new SimpleIntegerProperty(stock.getCreatedByUserId());
         createdByUserName = new SimpleStringProperty(stock.getCreatedByUserName());
         createdOn = new SimpleObjectProperty<>(stock.getCreatedOn());
+        sessionId = new SimpleStringProperty();
     }
 
 
@@ -108,17 +116,17 @@ public class Stock {
         this.productPrice.set(productPrice);
     }
 
-    public byte[] getProductPic() {
-        return productPic.get();
-    }
-
-    public ObjectProperty<byte[]> productPicProperty() {
-        return productPic;
-    }
-
-    public void setProductPic(byte[] productPic) {
-        this.productPic.set(productPic);
-    }
+//    public byte[] getProductPic() {
+//        return productPic.get();
+//    }
+//
+//    public ObjectProperty<byte[]> productPicProperty() {
+//        return productPic;
+//    }
+//
+//    public void setProductPic(byte[] productPic) {
+//        this.productPic.set(productPic);
+//    }
 
     public int getQuantity() {
         return quantity.get();
@@ -180,8 +188,17 @@ public class Stock {
         this.createdOn.set(createdOn);
     }
 
+    public String getSessionId() {
+        return sessionId.get();
+    }
 
+    public StringProperty sessionIdProperty() {
+        return sessionId;
+    }
 
+    public void setSessionId(String sessionId) {
+        this.sessionId.set(sessionId);
+    }
 }
 
 

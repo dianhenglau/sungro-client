@@ -1,14 +1,9 @@
 package sample;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import sungro.api.ParamForGetManyUsers;
-import sungro.api.ParamForGetOneUser;
-import sungro.api.ResultForGetManyUsers;
+import sungro.api.*;
 
 import java.rmi.RemoteException;
 
@@ -16,15 +11,17 @@ public class SalesListing {
     private final Router router;
 
     @FXML
-    private TextField nameInput;
-    @FXML
     private TextField categoryInput;
 
     //    private TextField idNumberInput;
     @FXML
-    private ChoiceBox<String> statusInput;
+    private DatePicker expiryDateFromInput;
     @FXML
-    private TableView<User> tableView;
+    private DatePicker expiryDateToInput;
+    @FXML
+    private TextField SKUInput;
+    @FXML
+    private TableView<Sales> tableView;
     @FXML
     private Text currentPageTxt;
     @FXML
@@ -36,9 +33,9 @@ public class SalesListing {
         this.router = router;
     }
 
-    public boolean render(ParamForGetManyUsers param) {
+    public boolean render(ParamForGetManySales param) {
         try {
-            ResultForGetManyUsers result = router.getRepo().getManyUsers(param);
+            ResultForGetManySales result = router.getRepo().getManySales(param);
 
             switch (result.getStatus()) {
                 case SERVER_ERROR:
@@ -52,8 +49,8 @@ public class SalesListing {
             }
 
             tableView.getItems().clear();
-            for (sungro.api.User user : result.getUsers()) {
-                tableView.getItems().add(new User(user));
+            for (sungro.api.Sale sales : result.getSales()) {
+        //        tableView.getItems().add(new Sale(sales));
             }
 
             currentPageTxt.setText(String.valueOf(result.getCurrentPage()));
@@ -67,24 +64,22 @@ public class SalesListing {
         }
     }
 
-    public ParamForGetManyUsers generateParam() {
-        ParamForGetManyUsers param = new ParamForGetManyUsers();
+    public ParamForGetManySales generateParam() {
+        ParamForGetManySales param = new ParamForGetManySales();
 
         param.setSessionId("0123456789abcdef");
-        param.setName(nameInput.getText());
-        param.setEmail(categoryInput.getText());
-//        param.setIdNumber(idNumberInput.getText());
-        param.setRole(statusInput.getValue());
+        //param.setName(nameInput.getText());
         param.setPage(Integer.parseInt(currentPageTxt.getText().trim()));
+//        param.setSku(SKUInput.getText());
 
         return param;
     }
 
     @FXML
-    protected void handleAddUserBtnAction() {
-        router.getUserAdding().render();
-        router.getUserListingRoot().setVisible(false);
-        router.getUserAddingRoot().setVisible(true);
+    protected void handleAddSalesBtnAction() {
+        router.getSalesAdding().render();
+        router.getSalesListingRoot().setVisible(false);
+        router.getSalesAddingRoot().setVisible(true);
     }
 
     @FXML
@@ -92,52 +87,80 @@ public class SalesListing {
         render(generateParam());
     }
 
-    @FXML
-    protected void handleViewBtnAction() {
-        User user = tableView.getSelectionModel().getSelectedItem();
+//    @FXML
+//    protected void handleViewBtnAction() {
+//        User user = tableView.getSelectionModel().getSelectedItem();
+//
+//        if (user == null) {
+//            new Alert(Alert.AlertType.ERROR, "No item selected").showAndWait();
+//            return;
+//        }
+//
+//        ParamForGetOneSales param = new ParamForGetOneSales();
+//        param.setSessionId("0123456789abcdef");
+//        param.setUserId(user.getUserId());
+//
+//        if (router.getUserInfo().render(param)) {
+//            router.getUserListingRoot().setVisible(false);
+//            router.getUserInfoRoot().setVisible(true);
+//        }
+//    }
 
-        if (user == null) {
+//    @FXML
+//    protected void handleEditBtnAction() {
+//        User user = tableView.getSelectionModel().getSelectedItem();
+//
+//        if (user == null) {
+//            new Alert(Alert.AlertType.ERROR, "No item selected").showAndWait();
+//            return;
+//        }
+//
+//        ParamForGetOneUser param = new ParamForGetOneUser();
+//        param.setSessionId("0123456789abcdef");
+//        param.setUserId(user.getUserId());
+//
+//        if (router.getUserEditing().render(param)) {
+//            router.getUserListingRoot().setVisible(false);
+//            router.getUserEditingRoot().setVisible(true);
+//        }
+//    }
+
+    @FXML
+    protected void handleDeleteBtnAction() {
+        Sales sales = tableView.getSelectionModel().getSelectedItem();
+
+        if (sales == null) {
             new Alert(Alert.AlertType.ERROR, "No item selected").showAndWait();
             return;
         }
 
-        ParamForGetOneUser param = new ParamForGetOneUser();
+        ParamForDeleteSale param = new ParamForDeleteSale();
         param.setSessionId("0123456789abcdef");
-        param.setUserId(user.getUserId());
+        param.setSaleId(sales.getSaleId());
 
-        if (router.getUserInfo().render(param)) {
-            router.getUserListingRoot().setVisible(false);
-            router.getUserInfoRoot().setVisible(true);
+        try {
+            ResultForDeleteSale result = router.getRepo().deleteSale(param);
+            switch (result.getStatus()) {
+                case SERVER_ERROR:
+                    new Alert(Alert.AlertType.ERROR, "Server error. It's not your fault.").showAndWait();
+                    return;
+                case INVALID_SESSION_ID:
+                    new Alert(Alert.AlertType.ERROR, "Invalid session ID. Please login again.").showAndWait();
+                    return;
+                case SUCCESS:
+                    break;
+            }
+
+            render(generateParam());
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
-    }
-
-    @FXML
-    protected void handleEditBtnAction() {
-        User user = tableView.getSelectionModel().getSelectedItem();
-
-        if (user == null) {
-            new Alert(Alert.AlertType.ERROR, "No item selected").showAndWait();
-            return;
-        }
-
-        ParamForGetOneUser param = new ParamForGetOneUser();
-        param.setSessionId("0123456789abcdef");
-        param.setUserId(user.getUserId());
-
-        if (router.getUserEditing().render(param)) {
-            router.getUserListingRoot().setVisible(false);
-            router.getUserEditingRoot().setVisible(true);
-        }
-    }
-
-    @FXML
-    protected void handleToggleStatusBtnAction() {
-
     }
 
     @FXML
     protected void handlePrevBtnAction() {
-        ParamForGetManyUsers param = generateParam();
+        ParamForGetManySales param = generateParam();
 
         param.setPage(param.getPage() - 1);
         if (param.getPage() < 1) {
@@ -149,7 +172,7 @@ public class SalesListing {
 
     @FXML
     protected void handleNextBtnAction() {
-        ParamForGetManyUsers param = generateParam();
+        ParamForGetManySales param = generateParam();
 
         param.setPage(param.getPage() + 1);
 
@@ -158,7 +181,7 @@ public class SalesListing {
 
     @FXML
     protected void handlePageInputAction() {
-        ParamForGetManyUsers param = generateParam();
+        ParamForGetManySales param = generateParam();
 
         try {
             param.setPage(Integer.parseInt(pageInput.getText().trim()));

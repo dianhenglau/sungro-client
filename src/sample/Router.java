@@ -26,12 +26,24 @@ public class Router {
     private final Parent productListingRoot;
     private final ProductAdding productAdding;
     private final Parent productAddingRoot;
+    private final ProductInfo productInfo;
+    private final Parent productInfoRoot;
+    private final ProductEditing productEditing;
+    private final Parent productEditingRoot;
 
     private final StockListing stockListing;
     private final Parent stockListingRoot;
+    private final StockAdding stockAdding;
+    private final Parent stockAddingRoot;
+    private final StockInfo stockInfo;
+    private final Parent stockInfoRoot;
+    private final StockEditing stockEditing;
+    private final Parent stockEditingRoot;
 
     private final SalesListing salesListing;
     private final Parent salesListingRoot;
+    private final SalesAdding salesAdding;
+    private final Parent salesAddingRoot;
 
     public Router(Repo repo) throws IOException {
         this.repo = repo;
@@ -40,7 +52,7 @@ public class Router {
         FXMLLoader layoutLoader = new FXMLLoader(getClass().getResource("Layout.fxml"));
         layoutLoader.setController(layout);
         layoutRoot = layoutLoader.load();
-        
+
         /*User*/
         userListing = new UserListing(this);
         FXMLLoader userListingLoader = new FXMLLoader(getClass().getResource("UserListing.fxml"));
@@ -73,16 +85,49 @@ public class Router {
         productAddingLoader.setController(productAdding);
         productAddingRoot = productAddingLoader.load();
 
-        /*Sales*/
-        salesListing = new SalesListing(this);
-        FXMLLoader salesListingLoader = new FXMLLoader(getClass().getResource("SalesListing.fxml"));
-        salesListingLoader.setController(salesListing);
-        salesListingRoot = salesListingLoader.load();
+        productInfo = new ProductInfo(this);
+        FXMLLoader productInfoLoader = new FXMLLoader(getClass().getResource("ProductInfo.fxml"));
+        productInfoLoader.setController(productInfo);
+        productInfoRoot = productInfoLoader.load();
+
+        productEditing = new ProductEditing(this);
+        FXMLLoader productEditingLoader = new FXMLLoader(getClass().getResource("productEditing.fxml"));
+        productEditingLoader.setController(productEditing);
+        productEditingRoot = productEditingLoader.load();
+
         /*Stock*/
         stockListing = new StockListing(this);
         FXMLLoader stockListingLoader = new FXMLLoader(getClass().getResource("StockListing.fxml"));
         stockListingLoader.setController(stockListing);
         stockListingRoot = stockListingLoader.load();
+
+        stockAdding = new StockAdding(this);
+        FXMLLoader stockAddingLoader = new FXMLLoader(getClass().getResource("StockAdding.fxml"));
+        stockAddingLoader.setController(stockAdding);
+        stockAddingRoot = stockAddingLoader.load();
+
+        stockInfo = new StockInfo(this);
+        FXMLLoader stockInfoLoader = new FXMLLoader(getClass().getResource("StockInfo.fxml"));
+        stockInfoLoader.setController(stockInfo);
+        stockInfoRoot = stockInfoLoader.load();
+
+        stockEditing = new StockEditing(this);
+        FXMLLoader stockEditingLoader = new FXMLLoader(getClass().getResource("StockEditing.fxml"));
+        stockEditingLoader.setController(stockEditing);
+        stockEditingRoot = stockEditingLoader.load();
+
+
+        /*Sales*/
+        salesListing = new SalesListing(this);
+        FXMLLoader salesListingLoader = new FXMLLoader(getClass().getResource("SalesListing.fxml"));
+        salesListingLoader.setController(salesListing);
+        salesListingRoot = salesListingLoader.load();
+
+        salesAdding = new SalesAdding(this);
+        FXMLLoader salesAddingLoader = new FXMLLoader(getClass().getResource("SalesAdding.fxml"));
+        salesAddingLoader.setController(salesAdding);
+        salesAddingRoot = salesAddingLoader.load();
+
 
         /*User*/
         layout.addNode(userListingRoot);
@@ -93,16 +138,23 @@ public class Router {
         /*Product*/
         layout.addNode(productListingRoot);
         layout.addNode(productAddingRoot);
+        layout.addNode(productInfoRoot);
+        layout.addNode(productEditingRoot);
 
         /*Stock*/
         layout.addNode(stockListingRoot);
-        layout.addNode(salesListingRoot);
+        layout.addNode(stockAddingRoot);
+        layout.addNode(stockInfoRoot);
+        layout.addNode(stockEditingRoot);
 
+        /*Sales*/
+        layout.addNode(salesListingRoot);
+        layout.addNode(salesAddingRoot);
 
         scene = new Scene(layoutRoot);
         scene.getStylesheets().add("app.css");
     }
-    /*User*/
+
     public Repo getRepo() {
         return repo;
     }
@@ -119,6 +171,7 @@ public class Router {
         return layoutRoot;
     }
 
+    /*User*/
     public UserListing getUserListing() {
         return userListing;
     }
@@ -159,12 +212,29 @@ public class Router {
     public Parent getProductListingRoot() {
         return productListingRoot;
     }
+
     public ProductAdding getProductAdding() {
         return productAdding;
     }
 
     public Parent getProductAddingRoot() {
         return productAddingRoot;
+    }
+
+    public ProductInfo getProductInfo() {
+        return productInfo;
+    }
+
+    public Parent getProductInfoRoot() {
+        return productInfoRoot;
+    }
+
+    public ProductEditing getProductEditing() {
+        return productEditing;
+    }
+
+    public Parent getProductEditingRoot() {
+        return productEditingRoot;
     }
 
     /*Stock*/
@@ -176,6 +246,30 @@ public class Router {
         return stockListingRoot;
     }
 
+    public StockAdding getStockAdding() {
+        return stockAdding;
+    }
+
+    public Parent getStockAddingRoot() {
+        return stockAddingRoot;
+    }
+
+    public StockInfo getStockInfo() {
+        return stockInfo;
+    }
+
+    public Parent getStockInfoRoot() {
+        return stockInfoRoot;
+    }
+
+    public StockEditing getStockEditing() {
+        return stockEditing;
+    }
+
+    public Parent getStockEditingRoot() {
+        return stockEditingRoot;
+    }
+
     /*Sales*/
     public SalesListing getSalesListing() {
         return salesListing;
@@ -184,4 +278,13 @@ public class Router {
     public Parent getSalesListingRoot() {
         return salesListingRoot;
     }
+
+    public SalesAdding getSalesAdding() {
+        return salesAdding;
+    }
+
+    public Parent getSalesAddingRoot() {
+        return salesAddingRoot;
+    }
+
 }

@@ -34,6 +34,7 @@ public class Layout {
             node.setVisible(false);
         }
 
+        router.getUserListing().render(router.getUserListing().generateParam());
         router.getUserListingRoot().setVisible(true);
     }
     @FXML
@@ -42,6 +43,7 @@ public class Layout {
             node.setVisible(false);
         }
 
+        router.getProductListing().render(router.getProductListing().generateParam());
         router.getProductListingRoot().setVisible(true);
     }
     @FXML
@@ -50,6 +52,7 @@ public class Layout {
             node.setVisible(false);
         }
 
+        router.getStockListing().render(router.getStockListing().generateParam());
         router.getStockListingRoot().setVisible(true);
     }
     @FXML
@@ -58,6 +61,7 @@ public class Layout {
             node.setVisible(false);
         }
 
+        router.getSalesListing().render(router.getSalesListing().generateParam());
         router.getSalesListingRoot().setVisible(true);
     }
 }

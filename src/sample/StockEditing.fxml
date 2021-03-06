@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox BorderPane.alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Edit Stock">
+        <VBox.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+        </VBox.margin>
+    </Text>
+    <HBox prefHeight="11.0" prefWidth="600.0">
+        <Button mnemonicParsing="false" onAction="#handleBackBtnAction" text="Back">
+            <HBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </HBox.margin>
+        </Button>
+        <Button mnemonicParsing="false" onAction="#handleSaveBtnAction" text="Save">
+            <HBox.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </HBox.margin>
+        </Button>
+    </HBox>
+    <GridPane>
+        <Label text="SKU">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="6.0" />
+            </GridPane.margin>
+        </Label>
+        <Label text="Product ID" GridPane.rowIndex="1">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </Label>
+        <Label text="Name" GridPane.rowIndex="2">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </Label>
+        <Label text="Category" GridPane.rowIndex="3">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </Label>
+        <Label text="Change Quantity Amount (=/-)" GridPane.rowIndex="5">
+            <GridPane.margin>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+            </GridPane.margin>
+        </Label>
+        <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+        <Text fx:id="SKUTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1">
+         <GridPane.margin>
+            <Insets top="6.0" />
+         </GridPane.margin></Text>
+        <Text fx:id="productIDTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Text fx:id="nameTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Text fx:id="categoryTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <TextField fx:id="changeInput" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
+    </GridPane>
+</VBox>

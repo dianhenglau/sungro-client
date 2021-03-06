@@ -1,14 +1,9 @@
 package sample;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
-import sungro.api.ParamForGetManyUsers;
-import sungro.api.ParamForGetOneUser;
-import sungro.api.ResultForGetManyUsers;
+import sungro.api.*;
 
 import java.rmi.RemoteException;
 
@@ -19,12 +14,16 @@ public class StockListing {
     private TextField nameInput;
     @FXML
     private TextField categoryInput;
-
-    //    private TextField idNumberInput;
+//    @FXML
+//    private ChoiceBox<String> statusInput;
     @FXML
-    private ChoiceBox<String> statusInput;
+    private TextField SKUInput;
     @FXML
-    private TableView<User> tableView;
+    private DatePicker expiryDateFromInput;
+    @FXML
+    private DatePicker expiryDateToInput;
+    @FXML
+    private TableView<Stock> tableView;
     @FXML
     private Text currentPageTxt;
     @FXML
@@ -36,9 +35,9 @@ public class StockListing {
         this.router = router;
     }
 
-    public boolean render(ParamForGetManyUsers param) {
+    public boolean render(ParamForGetManyStock param) {
         try {
-            ResultForGetManyUsers result = router.getRepo().getManyUsers(param);
+            ResultForGetManyStock result = router.getRepo().getManyStock(param);
 
             switch (result.getStatus()) {
                 case SERVER_ERROR:
@@ -52,8 +51,8 @@ public class StockListing {
             }
 
             tableView.getItems().clear();
-            for (sungro.api.User user : result.getUsers()) {
-                tableView.getItems().add(new User(user));
+            for (sungro.api.Stock stock : result.getStock()) {
+                tableView.getItems().add(new Stock (stock));
             }
 
             currentPageTxt.setText(String.valueOf(result.getCurrentPage()));
@@ -67,24 +66,30 @@ public class StockListing {
         }
     }
 
-    public ParamForGetManyUsers generateParam() {
-        ParamForGetManyUsers param = new ParamForGetManyUsers();
+    public ParamForGetManyStock generateParam() {
+        ParamForGetManyStock param = new ParamForGetManyStock();
 
         param.setSessionId("0123456789abcdef");
         param.setName(nameInput.getText());
-        param.setEmail(categoryInput.getText());
-//        param.setIdNumber(idNumberInput.getText());
-        param.setRole(statusInput.getValue());
+        param.setCategory(categoryInput.getText());
+        if (expiryDateFromInput.getValue() != null){
+            param.setExpiryDateFrom(expiryDateFromInput.getValue());
+
+        }
+        if (expiryDateToInput.getValue() != null){
+            param.setExpiryDateTo(expiryDateToInput.getValue());
+        }
+        param.setSku(SKUInput.getText());
         param.setPage(Integer.parseInt(currentPageTxt.getText().trim()));
 
         return param;
     }
 
     @FXML
-    protected void handleAddUserBtnAction() {
-        router.getUserAdding().render();
-        router.getUserListingRoot().setVisible(false);
-        router.getUserAddingRoot().setVisible(true);
+    protected void handleAddStockBtnAction() {
+        router.getStockAdding().render();
+        router.getStockListingRoot().setVisible(false);
+        router.getStockAddingRoot().setVisible(true);
     }
 
     @FXML
@@ -94,50 +99,79 @@ public class StockListing {
 
     @FXML
     protected void handleViewBtnAction() {
-        User user = tableView.getSelectionModel().getSelectedItem();
+        Stock stock = tableView.getSelectionModel().getSelectedItem();
 
-        if (user == null) {
+        if (stock == null) {
             new Alert(Alert.AlertType.ERROR, "No item selected").showAndWait();
             return;
         }
 
-        ParamForGetOneUser param = new ParamForGetOneUser();
+        ParamForGetManyStockTrx param = new ParamForGetManyStockTrx();
         param.setSessionId("0123456789abcdef");
-        param.setUserId(user.getUserId());
+        param.setSku(stock.getSku());
 
-        if (router.getUserInfo().render(param)) {
-            router.getUserListingRoot().setVisible(false);
-            router.getUserInfoRoot().setVisible(true);
+        if (router.getStockInfo().render(param)) {
+            router.getStockListingRoot().setVisible(false);
+            router.getStockInfoRoot().setVisible(true);
         }
     }
 
     @FXML
     protected void handleEditBtnAction() {
-        User user = tableView.getSelectionModel().getSelectedItem();
+        Stock stock = tableView.getSelectionModel().getSelectedItem();
 
-        if (user == null) {
+        if (stock == null) {
             new Alert(Alert.AlertType.ERROR, "No item selected").showAndWait();
             return;
         }
 
-        ParamForGetOneUser param = new ParamForGetOneUser();
+        ParamForGetOneStock param = new ParamForGetOneStock();
         param.setSessionId("0123456789abcdef");
-        param.setUserId(user.getUserId());
+        param.setSku(stock.getSku());
 
-        if (router.getUserEditing().render(param)) {
-            router.getUserListingRoot().setVisible(false);
-            router.getUserEditingRoot().setVisible(true);
+        if (router.getStockEditing().render(param)) {
+            router.getStockListingRoot().setVisible(false);
+            router.getStockEditingRoot().setVisible(true);
         }
     }
 
     @FXML
-    protected void handleToggleStatusBtnAction() {
+    protected void handleDeleteBtnAction() {
+        Stock stock = tableView.getSelectionModel().getSelectedItem();
 
+        if (stock == null) {
+            new Alert(Alert.AlertType.ERROR, "No item selected").showAndWait();
+            return;
+        }
+
+        ParamForDeleteStock param = new ParamForDeleteStock();
+        param.setSessionId("0123456789abcdef");
+        param.setSku(stock.getSku());
+
+        try {
+            ResultForDeleteStock result = router.getRepo().deleteStock(param);
+            switch (result.getStatus()) {
+                case SERVER_ERROR:
+                    new Alert(Alert.AlertType.ERROR, "Server error. It's not your fault.").showAndWait();
+                    return;
+                case INVALID_SESSION_ID:
+                    new Alert(Alert.AlertType.ERROR, "Invalid session ID. Please login again.").showAndWait();
+                    return;
+                case SUCCESS:
+                    break;
+            }
+
+            render(generateParam());
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
+
 
     @FXML
     protected void handlePrevBtnAction() {
-        ParamForGetManyUsers param = generateParam();
+        ParamForGetManyStock param = generateParam();
 
         param.setPage(param.getPage() - 1);
         if (param.getPage() < 1) {
@@ -149,7 +183,7 @@ public class StockListing {
 
     @FXML
     protected void handleNextBtnAction() {
-        ParamForGetManyUsers param = generateParam();
+        ParamForGetManyStock param = generateParam();
 
         param.setPage(param.getPage() + 1);
 
@@ -158,7 +192,7 @@ public class StockListing {
 
     @FXML
     protected void handlePageInputAction() {
-        ParamForGetManyUsers param = generateParam();
+        ParamForGetManyStock param = generateParam();
 
         try {
             param.setPage(Integer.parseInt(pageInput.getText().trim()));

@@ -17,7 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.rmi.RemoteException;
 
-public class ProductAdding {
+public class SalesAdding {
     private final Router router;
 
     @FXML
@@ -35,7 +35,7 @@ public class ProductAdding {
 
 
 
-    public ProductAdding(Router router) {
+    public SalesAdding(Router router) {
         this.router = router;
     }
 

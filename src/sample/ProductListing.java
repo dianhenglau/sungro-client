@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import sungro.api.ParamForGetManyProducts;
 import sungro.api.ParamForGetOneProduct;
@@ -15,10 +16,14 @@ import java.rmi.RemoteException;
 public class ProductListing {
     private final Router router;
 
-    @FXML
-    private TextField nameInput;
+//    @FXML
+//    private TextField nameInput;
     @FXML
     private TextField categoryInput;
+//    @FXML
+//    private ImageView productPicView;
+    @FXML
+    private TextField priceInput;
     @FXML
     private ChoiceBox<String> statusInput;
     @FXML
@@ -69,10 +74,9 @@ public class ProductListing {
         ParamForGetManyProducts param = new ParamForGetManyProducts();
 
         param.setSessionId("0123456789abcdef");
-        param.setName(nameInput.getText());
-//        param.setEmail(categoryInput.getText());
-//        param.setIdNumber(idNumberInput.getText());
-//        param.setRole(statusInput.getValue());
+//        param.setName(nameInput.getText());
+        param.setCategory(categoryInput.getText());
+        param.setStatus(statusInput.getValue());
         param.setPage(Integer.parseInt(currentPageTxt.getText().trim()));
 
         return param;
@@ -103,10 +107,10 @@ public class ProductListing {
         param.setSessionId("0123456789abcdef");
         param.setProductId(product.getProductId());
 
-//        if (router.getProductInfo().render(param)) {
-//            router.getProductListingRoot().setVisible(false);
-//            router.getProductInfoRoot().setVisible(true);
-//        }
+        if (router.getProductInfo().render(param)) {
+            router.getProductListingRoot().setVisible(false);
+            router.getProductInfoRoot().setVisible(true);
+        }
     }
 
     @FXML
@@ -122,10 +126,10 @@ public class ProductListing {
         param.setSessionId("0123456789abcdef");
         param.setProductId(product.getProductId());
 
-//        if (router.getProductEditing().render(param)) {
-//            router.getProductListingRoot().setVisible(false);
-//            router.getProductEditingRoot().setVisible(true);
-//        }
+        if (router.getProductEditing().render(param)) {
+            router.getProductListingRoot().setVisible(false);
+            router.getProductEditingRoot().setVisible(true);
+        }
     }
 
     @FXML

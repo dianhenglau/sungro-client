@@ -17,18 +17,21 @@ public class Sales {
     private final IntegerProperty soldByUserId;
     private final StringProperty soldByUserName;
     private final ObjectProperty<LocalDateTime> soldOn;
+    private final StringProperty product;
 
-    public Sales(){
-        saleId = new SimpleIntegerProperty();
-        sku = new SimpleStringProperty();
-        productId = new SimpleIntegerProperty();
-        productName = new SimpleStringProperty();
-        productCategory = new SimpleStringProperty();
+    public Sales(sungro.api.Sale sales){
+        saleId = new SimpleIntegerProperty(sales.getSaleId());
+        sku = new SimpleStringProperty(sales.getSku());
+        productId = new SimpleIntegerProperty(sales.getProductId());
+        productName = new SimpleStringProperty(sales.getProductName());
+        product = new SimpleStringProperty("SKU: "+sales.getSku() +"\n"+"Product ID "+sales.getProductId()
+                +"\n"+"Product Name: "+sales.getProductName());
+        productCategory = new SimpleStringProperty(sales.getProductCategory());
         unitPrice = new SimpleObjectProperty<>(BigDecimal.valueOf(0, 2));
-        soldQuantity = new SimpleIntegerProperty();
-        subTotalPrice = new SimpleObjectProperty<>();
-        soldByUserId = new SimpleIntegerProperty();
-        soldByUserName = new SimpleStringProperty();
+        soldQuantity = new SimpleIntegerProperty(sales.getSoldQuantity());
+        subTotalPrice = new SimpleObjectProperty<>(sales.getSubTotalPrice());
+        soldByUserId = new SimpleIntegerProperty(sales.getSoldByUserId());
+        soldByUserName = new SimpleStringProperty(sales.getSoldByUserName());
         soldOn = new SimpleObjectProperty<>(LocalDateTime.of(1970, 1, 1, 0, 0, 0));
     }
 

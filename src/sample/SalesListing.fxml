@@ -6,118 +6,102 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox BorderPane.alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="Users">
+<VBox prefHeight="627.0" prefWidth="504.0" BorderPane.alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="Sales">
         <VBox.margin>
-            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
         </VBox.margin>
     </Text>
     <FlowPane>
         <Button mnemonicParsing="false" text="Back">
             <FlowPane.margin>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
             </FlowPane.margin>
         </Button>
-        <Button mnemonicParsing="false" onAction="#handleAddUserBtnAction" text="Add User">
+        <Button mnemonicParsing="false" onAction="#handleAddSalesBtnAction" text="Add">
             <FlowPane.margin>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
             </FlowPane.margin>
         </Button>
     </FlowPane>
     <FlowPane>
         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filter">
             <FlowPane.margin>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
             </FlowPane.margin>
         </Text>
-        <Label text="SKU"/>
+        <Label text="SKU" />
         <TextField fx:id="nameInput">
             <opaqueInsets>
-                <Insets/>
+                <Insets />
             </opaqueInsets>
             <FlowPane.margin>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
             </FlowPane.margin>
         </TextField>
         <Label text="Category">
             <opaqueInsets>
-                <Insets/>
+                <Insets />
             </opaqueInsets>
             <FlowPane.margin>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
             </FlowPane.margin>
         </Label>
         <TextField fx:id="categoryInput">
             <FlowPane.margin>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
             </FlowPane.margin>
         </TextField>
 
-        <Label text="Expiry Date From ">
+        <Label text="On Date">
             <FlowPane.margin>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
             </FlowPane.margin>
         </Label>
         <DatePicker>
             <FlowPane.margin>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
             </FlowPane.margin>
         </DatePicker>
-        <Label text="To ">
+        <Label text="On Month">
             <FlowPane.margin>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
             </FlowPane.margin>
         </Label>
         <DatePicker>
             <FlowPane.margin>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
             </FlowPane.margin>
         </DatePicker>
-        <Button mnemonicParsing="false" text="Search" onAction="#handleGoBtnAction"/>
+        <Button mnemonicParsing="false" onAction="#handleGoBtnAction" text="Search" />
     </FlowPane>
-    <FlowPane alignment="TOP_RIGHT">
-        <Button fx:id="viewBtn" mnemonicParsing="false" onAction="#handleViewBtnAction" text="View">
+    <FlowPane fx:id="deleteInputBth" alignment="TOP_RIGHT">
+        <Button fx:id="Delete" mnemonicParsing="false" onAction="#handleDeleteBtnAction" text="Delete">
             <FlowPane.margin>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
-            </FlowPane.margin>
-        </Button>
-        <Button fx:id="editBtn" mnemonicParsing="false" onAction="#handleEditBtnAction" text="Edit">
-            <FlowPane.margin>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
-            </FlowPane.margin>
-        </Button>
-        <Button fx:id="toggleStatusBtn" mnemonicParsing="false" onAction="#handleToggleStatusBtnAction"
-                text="Toggle Status">
-            <FlowPane.margin>
-                <Insets bottom="3.0" left="3.0" right="3.0" top="3.0"/>
+                <Insets bottom="6.0" left="3.0" right="3.0" top="3.0" />
             </FlowPane.margin>
         </Button>
     </FlowPane>
     <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
         <columns>
-            <TableColumn editable="false" sortable="false" text="SKU">
+            <TableColumn editable="false" prefWidth="69.00000154972076" sortable="false" text="Sales ID">
                 <cellValueFactory>
-                    <PropertyValueFactory property="productId"/>
+                    <PropertyValueFactory property="salesID" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn editable="false" sortable="false" text="Product Name">
+            <TableColumn editable="false" prefWidth="145.59996795654297" sortable="false" text="Product">
                 <cellValueFactory>
-                    <PropertyValueFactory property="picture"/>
+                    <PropertyValueFactory property="product" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn editable="false" sortable="false" text="Category">
+            <TableColumn editable="false" prefWidth="105.60003662109375" sortable="false" text="Unit Price (RM)">
                 <cellValueFactory>
-                    <PropertyValueFactory property="Name"/>
+                    <PropertyValueFactory property="unitPrice" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn editable="false" sortable="false" text="Expiry Date">
+            <TableColumn editable="false" prefWidth="104.0" sortable="false" text="Sold Quantity">
                 <cellValueFactory>
-                    <PropertyValueFactory property="category"/>
-                </cellValueFactory>
-            </TableColumn>
-            <TableColumn editable="false" sortable="false" text="Quality">
-                <cellValueFactory>
-                    <PropertyValueFactory property="price"/>
+                    <PropertyValueFactory property="soldQuantity" />
                 </cellValueFactory>
             </TableColumn>
             <!--            <TableColumn editable="false" sortable="false" text="ID Type">-->
@@ -130,24 +114,41 @@
             <!--                    <PropertyValueFactory property="role"/>-->
             <!--                </cellValueFactory>-->
             <!--            </TableColumn>-->
-            <TableColumn editable="false" sortable="false" text="Status">
+            <TableColumn editable="false" prefWidth="80.00003051757812" sortable="false" text="Price (RM)">
                 <cellValueFactory>
-                    <PropertyValueFactory property="status"/>
+                    <PropertyValueFactory property="subTotalPrice" />
                 </cellValueFactory>
             </TableColumn>
         </columns>
     </TableView>
     <FlowPane>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Page"/>
-        <Text fx:id="currentPageTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="1"/>
-        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/"/>
-        <Text fx:id="maxPageTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="5"/>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Page">
+         <FlowPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+         </FlowPane.margin></Text>
+        <Text fx:id="currentPageTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="1">
+         <FlowPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+         </FlowPane.margin></Text>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+        <Text fx:id="maxPageTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="5" />
     </FlowPane>
     <FlowPane>
-        <Button mnemonicParsing="false" onAction="#handlePrevBtnAction" text="Prev"/>
-        <Button mnemonicParsing="false" onAction="#handleNextBtnAction" text="Next"/>
-        <Label text="Go to page"/>
-        <TextField fx:id="pageInput" onAction="#handlePageInputAction"/>
+        <Button mnemonicParsing="false" onAction="#handlePrevBtnAction" text="Prev">
+         <FlowPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+         </FlowPane.margin></Button>
+        <Button mnemonicParsing="false" onAction="#handleNextBtnAction" text="Next">
+         <FlowPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+         </FlowPane.margin></Button>
+        <Label text="Go to page">
+         <FlowPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+         </FlowPane.margin></Label>
+        <TextField fx:id="pageInput" onAction="#handlePageInputAction">
+         <FlowPane.margin>
+            <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+         </FlowPane.margin></TextField>
     </FlowPane>
 </VBox>
-
