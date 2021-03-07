@@ -52,7 +52,6 @@ public class StockEditing {
             nameTxt.setText(stock.getProductName());
             categoryTxt.setText(stock.getProductCategory());
             changeInput.setText(String.valueOf(stock.getQuantity()));
-            expiryDateInput.setValue(stock.getExpiryDate());
 
             return true;
 

@@ -76,6 +76,20 @@ public class ProductInfo {
         }
 
     }
+
+    @FXML
+    protected void handleEditBtnAction() {
+
+        ParamForGetOneProduct param = new ParamForGetOneProduct();
+        param.setSessionId("0123456789abcdef");
+        param.setProductId(Integer.parseInt(productIdTxt.getText()));
+
+        if (router.getProductEditing().render(param)) {
+            router.getProductInfoRoot().setVisible(false);
+            router.getProductEditingRoot().setVisible(true);
+        }
+    }
+
     @FXML
     protected void handleBackBtnAction() {
         router.getProductInfoRoot().setVisible(false);

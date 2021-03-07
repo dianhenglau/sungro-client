@@ -51,7 +51,7 @@
         </Label>
         <Region prefHeight="10.0" prefWidth="0.0" GridPane.rowIndex="14" />
 
-        <TextField fx:id="productNameInput" GridPane.columnIndex="1" GridPane.rowIndex="2">
+        <TextField fx:id="SKUInput" GridPane.columnIndex="1" GridPane.rowIndex="2">
             <GridPane.margin>
                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
             </GridPane.margin>
@@ -65,15 +65,12 @@
         <VBox GridPane.columnIndex="1" GridPane.rowIndex="0">
             <TextField fx:id="productPicInput" visible="false" />
         </VBox>
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="6">
+      <TextField fx:id="quantityInput" GridPane.columnIndex="1" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets bottom="6.0" left="3.0" right="3.0" top="3.0" />
          </GridPane.margin>
       </TextField>
-      <Text fx:id="SKUTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="7">
-         <GridPane.margin>
-            <Insets bottom="3.0" left="3.0" right="3.0" top="9.0" />
-         </GridPane.margin></Text>
+
       <Label text="Name" GridPane.rowIndex="10">
          <GridPane.margin>
             <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
@@ -99,38 +96,17 @@
             <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
          </GridPane.margin>
       </Label>
+        <Text fx:id="skuTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="7" />
       <Text fx:id="productIdTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="9" />
       <Text fx:id="nameTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="10" />
       <Text fx:id="categoryTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="11" />
       <Text fx:id="quantityTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="12" />
       <Text fx:id="expirydateTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-      <Button mnemonicParsing="false" text="Go" GridPane.columnIndex="2" GridPane.rowIndex="2">
+      <Button mnemonicParsing="false" text="Go" onAction="#handleGoBtnAction" GridPane.columnIndex="2" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
          </GridPane.margin>
       </Button>
-      <columnConstraints>
-         <ColumnConstraints />
-         <ColumnConstraints />
-         <ColumnConstraints />
-      </columnConstraints>
-      <rowConstraints>
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-      </rowConstraints>
 
     </GridPane>
 

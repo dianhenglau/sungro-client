@@ -60,11 +60,11 @@ public class ProductEditing {
 
             sungro.api.Product product = result.getProduct();
 
-//            if (product.getProductPic().length == 0) {
-//                productPicView.setImage(new Image("profile.png"));
-//            } else {
-//                productPicView.setImage(new Image(new ByteArrayInputStream(product.getProductPic())));
-//            }
+            if (product.getProductPic().length == 0) {
+                productPicView.setImage(new Image("profile.png"));
+            } else {
+                productPicView.setImage(new Image(new ByteArrayInputStream(product.getProductPic())));
+            }
 
             productIdTxt.setText(String.valueOf(product.getProductId()));
             productNameInput.setText(product.getName());
@@ -96,14 +96,14 @@ public class ProductEditing {
         param.setProductPrice(new BigDecimal(priceInput.getText()));
         param.setStatus(statusInput.getValue());
 
-//        if (!productPicInput.getText().isEmpty()) {
-//            try {
-//                param.setProductPic(Files.readAllBytes(Paths.get(productPicInput.getText())));
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                return;
-//            }
-//        }
+        if (!productPicInput.getText().isEmpty()) {
+            try {
+                param.setProductPic(Files.readAllBytes(Paths.get(productPicInput.getText())));
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+        }
 
         try {
             ResultForSetProduct result = router.getRepo().setProduct(param);

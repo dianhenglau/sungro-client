@@ -6,34 +6,43 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import sungro.api.ParamForAddProduct;
-import sungro.api.ResultForAddProduct;
+import sungro.api.*;
+import sungro.api.Product;
+import sungro.api.Stock;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.rmi.RemoteException;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class SalesAdding {
     private final Router router;
 
     @FXML
+    private TextField SKUInput;
+    @FXML
+    private TextField quantityInput;
+    @FXML
+    private Text skuTxt;
+    @FXML
     private ImageView productPicView;
     @FXML
-    private TextField productPicInput;
+    private Text productIdTxt;
     @FXML
-    private TextField productNameInput;
+    private Text nameTxt;
     @FXML
-    private ChoiceBox<String> categoryInput;
+    private Text categoryTxt;
     @FXML
-    private TextField priceInput;
+    private Text quantityTxt;
     @FXML
-    private ChoiceBox<String> statusInput;
-
-
+    private Text expirydateTxt;
 
     public SalesAdding(Router router) {
         this.router = router;
@@ -42,44 +51,74 @@ public class SalesAdding {
 
     public boolean render() {
         productPicView.setImage(new Image("profile.png"));
-        productPicInput.setText("");
-        productNameInput.setText("");
-
-        categoryInput.setValue(categoryInput.getItems().get(0));
-        statusInput.setValue(statusInput.getItems().get(0));
-        priceInput.setText("");
+        skuTxt.setText("");
+        productIdTxt.setText("");
+        nameTxt.setText("");
+        categoryTxt.setText("");
+        quantityTxt.setText("");
+        expirydateTxt.setText("");
 
         return true;
     }
 
+    public boolean render(ParamForGetOneStock param) {
+        try {
+            ResultForGetOneStock result = router.getRepo().getOneStock(param);
+
+            switch (result.getStatus()) {
+                case SERVER_ERROR:
+                    new Alert(Alert.AlertType.ERROR, "Server error. It's not your fault.").showAndWait();
+                    return false;
+                case INVALID_SESSION_ID:
+                    new Alert(Alert.AlertType.ERROR, "Invalid session ID. Please login again.").showAndWait();
+                    return false;
+                case  NOT_FOUND:
+                    new Alert(Alert.AlertType.ERROR, "Item not found.").showAndWait();
+                    return false;
+                case SUCCESS:
+                    break;
+            }
+
+            Stock stock = result.getStock();
+
+            if (stock.getProductPic().length == 0) {
+                productPicView.setImage(new Image("profile.png"));
+            } else {
+                productPicView.setImage(new Image(new ByteArrayInputStream(stock.getProductPic())));
+            }
+
+            skuTxt.setText(String.valueOf(stock.getSku()));
+            productIdTxt.setText(String.valueOf(stock.getProductId()));
+            nameTxt.setText(String.valueOf(stock.getProductName()));
+            categoryTxt.setText(String.valueOf(stock.getProductCategory()));
+            quantityTxt.setText(String.valueOf(stock.getQuantity()));
+            expirydateTxt.setText(stock.getExpiryDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+
+            return true;
+
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
     @FXML
     protected void handleBackBtnAction() {
-        router.getProductAddingRoot().setVisible(false);
-        router.getProductListingRoot().setVisible(true);
+        router.getSalesAddingRoot().setVisible(false);
+        router.getSalesListingRoot().setVisible(true);
     }
 
     @FXML
     protected void handleSaveBtnAction() {
 
-        ParamForAddProduct param = new ParamForAddProduct();
+        ParamForAddSale param = new ParamForAddSale();
         param.setSessionId("0123456789abcdef");
-        param.setName(productNameInput.getText());
-        param.setCategory(categoryInput.getValue());
-        param.setStatus(statusInput.getValue());
-        param.setProductPrice(new BigDecimal (priceInput.getText()));
-
-
-        if (!productPicInput.getText().isEmpty()) {
-            try {
-                param.setProductPic(Files.readAllBytes(Paths.get(productPicInput.getText())));
-            } catch (IOException e) {
-                e.printStackTrace();
-                return;
-            }
-        }
+        param.setSku(SKUInput.getText());
+        param.setSoldQuantity(Integer.parseInt(quantityInput.getText()));
 
         try {
-            ResultForAddProduct result = router.getRepo().addProduct(param);
+            ResultForAddSale result = router.getRepo().addSale(param);
 
             switch (result.getStatus()) {
                 case INVALID_SESSION_ID:
@@ -88,57 +127,57 @@ public class SalesAdding {
                 case SERVER_ERROR:
                     new Alert(Alert.AlertType.ERROR, "Server error. It's not your fault.").showAndWait();
                     return;
-                case MISSING_NAME:
-                    new Alert(Alert.AlertType.ERROR, "Name is required.").showAndWait();
+                case MISSING_SKU:
+                    new Alert(Alert.AlertType.ERROR, "SKU is required.").showAndWait();
                     return;
-                case REPEATED_NAME:
-                    new Alert(Alert.AlertType.ERROR, "Name is repeated.").showAndWait();
+                case INVALID_SKU:
+                    new Alert(Alert.AlertType.ERROR, "Invalid SKU.").showAndWait();
                     return;
-                case MISSING_CATEGORY:
-                    new Alert(Alert.AlertType.ERROR, "Category is required.").showAndWait();
+                case MISSING_QUANTITY:
+                    new Alert(Alert.AlertType.ERROR, "Quantity is required.").showAndWait();
                     return;
-                case  INVALID_CATEGORY:
-                    new Alert(Alert.AlertType.ERROR, "Invalid category.").showAndWait();
-                    return;
-                case MISSING_PRODUCT_PRICE:
-                    new Alert(Alert.AlertType.ERROR, "Product price is required.").showAndWait();
-                    return;
-                case INVALID_PRODUCT_PRICE:
-                    new Alert(Alert.AlertType.ERROR, "Invalid product price.").showAndWait();
-                    return;
-                case MISSING_STATUS:
-                    new Alert(Alert.AlertType.ERROR, "Status is required.").showAndWait();
-                    return;
-                case INVALID_STATUS:
-                    new Alert(Alert.AlertType.ERROR, "Invalid status.").showAndWait();
+                case  INVALID_QUANTITY:
+                    new Alert(Alert.AlertType.ERROR, "Invalid quantity.").showAndWait();
                     return;
                 case SUCCESS:
                     new Alert(Alert.AlertType.INFORMATION, "New product item added.").showAndWait();
                     break;
             }
 
-            router.getProductListing().render(router.getProductListing().generateParam());
-            router.getProductAddingRoot().setVisible(false);
-            router.getProductListingRoot().setVisible(true);
+            router.getSalesListing().render(router.getSalesListing().generateParam());
+            router.getSalesAddingRoot().setVisible(false);
+            router.getSalesListingRoot().setVisible(true);
 
         } catch (RemoteException e) {
             e.printStackTrace();
         }
     }
 
-    @FXML
-    protected void handleChooseBtnAction() {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choose profile picture");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif"),
-                new FileChooser.ExtensionFilter("All Files", "*.*")
-        );
+//    @FXML
+//    protected void handleChooseBtnAction() {
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setTitle("Choose profile picture");
+//        fileChooser.getExtensionFilters().addAll(
+//                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif"),
+//                new FileChooser.ExtensionFilter("All Files", "*.*")
+//        );
+//
+//        File selectedFile = fileChooser.showOpenDialog(router.getScene().getWindow());
+//        if (selectedFile != null) {
+//            productPicView.setImage(new Image(selectedFile.toURI().normalize().toString()));
+//            ProductPicInput.setText(selectedFile.getPath());
+//        }
+//    }
+        public ParamForGetOneStock generateParam() {
+            ParamForGetOneStock param = new ParamForGetOneStock();
 
-        File selectedFile = fileChooser.showOpenDialog(router.getScene().getWindow());
-        if (selectedFile != null) {
-            productPicView.setImage(new Image(selectedFile.toURI().normalize().toString()));
-            productPicInput.setText(selectedFile.getPath());
+            param.setSessionId("0123456789abcdef");
+            param.setSku(SKUInput.getText());
+
+            return param;
         }
-    }
+        @FXML
+        protected void handleGoBtnAction() {
+            render(generateParam());
+        }
 }

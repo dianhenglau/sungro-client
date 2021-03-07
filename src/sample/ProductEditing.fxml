@@ -60,7 +60,7 @@
         <Region prefHeight="10.0" prefWidth="0.0" GridPane.rowIndex="11" />
 
         <VBox GridPane.columnIndex="1">
-            <TextField fx:id="profilePicInput" visible="false" />
+            <TextField fx:id="productPicInput" visible="false" />
         </VBox>
         <Text fx:id="productIdTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <GridPane.margin>
@@ -92,7 +92,7 @@
                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
             </GridPane.margin>
         </ChoiceBox>
-        <ImageView fx:id="profilePicView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
+        <ImageView fx:id="productPicView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <GridPane.margin>
                 <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
             </GridPane.margin>

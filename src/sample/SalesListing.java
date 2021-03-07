@@ -11,13 +11,11 @@ public class SalesListing {
     private final Router router;
 
     @FXML
-    private TextField categoryInput;
-
-    //    private TextField idNumberInput;
+    private TextField productIdInput;
     @FXML
-    private DatePicker expiryDateFromInput;
+    private DatePicker OndateInput;
     @FXML
-    private DatePicker expiryDateToInput;
+    private DatePicker OnmonthInput;
     @FXML
     private TextField SKUInput;
     @FXML
@@ -50,7 +48,7 @@ public class SalesListing {
 
             tableView.getItems().clear();
             for (sungro.api.Sale sales : result.getSales()) {
-        //        tableView.getItems().add(new Sale(sales));
+                tableView.getItems().add(new Sales(sales) );
             }
 
             currentPageTxt.setText(String.valueOf(result.getCurrentPage()));
@@ -68,9 +66,18 @@ public class SalesListing {
         ParamForGetManySales param = new ParamForGetManySales();
 
         param.setSessionId("0123456789abcdef");
-        //param.setName(nameInput.getText());
+        param.setSku(SKUInput.getText());
+        if(!productIdInput.getText().isBlank()){
+            param.setProductId(Integer.parseInt(productIdInput.getText()));
+        }
+        if (OndateInput.getValue() != null){
+            param.setOnDate(OndateInput.getValue());
+        }
+        if (OnmonthInput.getValue() != null){
+            param.setOnMonth(OnmonthInput.getValue());
+        }
         param.setPage(Integer.parseInt(currentPageTxt.getText().trim()));
-//        param.setSku(SKUInput.getText());
+
 
         return param;
     }
