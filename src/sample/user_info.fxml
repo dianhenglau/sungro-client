@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.UserInfo">
+   <children>
+      <Text fx:id="actiontarget" strokeType="OUTSIDE" strokeWidth="0.0" text="User Info">
+         <font>
+            <Font name="Arial monospaced for SAP" size="24.0" />
+         </font>
+      </Text>
+      <HBox prefWidth="200.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleSubmitButtonAction" text="Button" />
+            <Button mnemonicParsing="false" text="Button" />
+         </children>
+      </HBox>
+      <Label text="Label" />
+   </children>
+</VBox>
