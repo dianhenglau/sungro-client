@@ -17,31 +17,22 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
 public class Main extends Application {
-
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        Parent root2 = FXMLLoader.load(getClass().getResource("user_info.fxml"));
-        primaryStage.setTitle("Good Bye");
-        primaryStage.setScene(new Scene(root2, 300, 275));
-        primaryStage.show();
+    public static void main(String[] args) {
+        launch(args);
     }
 
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Registry registry = LocateRegistry.getRegistry(1099);
+        Repo repo = (Repo) registry.lookup("Repo");
 
-    public static void main(String[] args) throws RemoteException, NotBoundException {
-//        Registry registry = LocateRegistry.getRegistry(1099);
-//        Repo repo = (Repo) registry.lookup("Repo");
-//
-//        ParamForGetManyUsers param = new ParamForGetManyUsers();
-//        ResultForGetManyUsers result = repo.getManyUsers(param);
-//        System.out.println(result.getStatus());
-//
-//        ArrayList<User> users = result.getUsers();
-//        System.out.println(users.size());
-//        for (User user : users) {
-//            System.out.println(user.getFirstName());
-//        }
+        Router router = new Router(repo);
+        router.getLayout().render();
+        router.getUserListing().render(router.getUserListing().generateParam());
+        router.getUserListingRoot().setVisible(true);
 
-        launch(args);
+        primaryStage.setTitle("Sun Grocery");
+        primaryStage.setScene(router.getScene());
+        primaryStage.show();
     }
 }

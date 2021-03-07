@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.String?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" BorderPane.alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/11.0.1">
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Users" styleClass="page-title"/>
+    <FlowPane>
+        <Button mnemonicParsing="false" text="Back"/>
+        <Button mnemonicParsing="false" text="Add User" onAction="#handleAddUserBtnAction"/>
+    </FlowPane>
+    <FlowPane>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filter"/>
+        <Label text="Name"/>
+        <TextField fx:id="nameInput"/>
+        <Label text="Email"/>
+        <TextField fx:id="emailInput"/>
+        <Label text="ID Number"/>
+        <TextField fx:id="idNumberInput"/>
+        <Label text="Role"/>
+        <ChoiceBox fx:id="roleInput" value="">
+            <String fx:value=""/>
+            <String fx:value="Admin"/>
+            <String fx:value="Sales Executive"/>
+        </ChoiceBox>
+        <Button mnemonicParsing="false" text="Go" onAction="#handleGoBtnAction"/>
+    </FlowPane>
+    <FlowPane alignment="TOP_RIGHT">
+        <Button fx:id="viewBtn" mnemonicParsing="false" text="View" onAction="#handleViewBtnAction"/>
+        <Button fx:id="editBtn" mnemonicParsing="false" text="Edit" onAction="#handleEditBtnAction"/>
+        <Button fx:id="toggleStatusBtn" mnemonicParsing="false" text="Toggle Status"
+                onAction="#handleToggleStatusBtnAction"/>
+    </FlowPane>
+    <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn editable="false" sortable="false" text="User ID">
+                <cellValueFactory>
+                    <PropertyValueFactory property="userId"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" sortable="false" text="First Name">
+                <cellValueFactory>
+                    <PropertyValueFactory property="firstName"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" sortable="false" text="Last Name">
+                <cellValueFactory>
+                    <PropertyValueFactory property="lastName"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" sortable="false" text="Email">
+                <cellValueFactory>
+                    <PropertyValueFactory property="email"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" sortable="false" text="ID Number">
+                <cellValueFactory>
+                    <PropertyValueFactory property="idNumber"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" sortable="false" text="ID Type">
+                <cellValueFactory>
+                    <PropertyValueFactory property="idType"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" sortable="false" text="Role">
+                <cellValueFactory>
+                    <PropertyValueFactory property="role"/>
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn editable="false" sortable="false" text="Status">
+                <cellValueFactory>
+                    <PropertyValueFactory property="status"/>
+                </cellValueFactory>
+            </TableColumn>
+        </columns>
+    </TableView>
+    <FlowPane>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Page"/>
+        <Text fx:id="currentPageTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="1"/>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/"/>
+        <Text fx:id="maxPageTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="5"/>
+    </FlowPane>
+    <FlowPane>
+        <Button mnemonicParsing="false" onAction="#handlePrevBtnAction" text="Prev"/>
+        <Button mnemonicParsing="false" onAction="#handleNextBtnAction" text="Next"/>
+        <Label text="Go to page"/>
+        <TextField fx:id="pageInput" onAction="#handlePageInputAction"/>
+    </FlowPane>
+</VBox>

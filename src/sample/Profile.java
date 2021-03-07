@@ -5,13 +5,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import sungro.api.ParamForGetCurrentUser;
 import sungro.api.ParamForGetOneUser;
+import sungro.api.ResultForGetCurrentUser;
 import sungro.api.ResultForGetOneUser;
 
 import java.io.ByteArrayInputStream;
 import java.rmi.RemoteException;
 
-public class UserInfo {
+public class Profile {
     private final Router router;
 
     @FXML
@@ -37,13 +39,13 @@ public class UserInfo {
     @FXML
     private Text createdOnTxt;
 
-    public UserInfo(Router router) {
+    public Profile(Router router) {
         this.router = router;
     }
 
-    public boolean render(ParamForGetOneUser param) {
+    public boolean render(ParamForGetCurrentUser param) {
         try {
-            ResultForGetOneUser result = router.getRepo().getOneUser(param);
+            ResultForGetCurrentUser result = router.getRepo().getCurrentUser(param);
 
             switch (result.getStatus()) {
                 case SERVER_ERROR:
@@ -52,9 +54,7 @@ public class UserInfo {
                 case INVALID_SESSION_ID:
                     new Alert(Alert.AlertType.ERROR, "Invalid session ID. Please login again.").showAndWait();
                     return false;
-                case NOT_FOUND:
-                    new Alert(Alert.AlertType.ERROR, "User not found").showAndWait();
-                    return false;
+
                 case SUCCESS:
                     break;
             }
@@ -88,19 +88,9 @@ public class UserInfo {
 
     @FXML
     protected void handleBackBtnAction() {
-        router.getUserInfoRoot().setVisible(false);
+        router.getProfileRoot().setVisible(false);
         router.getUserListingRoot().setVisible(true);
     }
 
-    @FXML
-    protected void handleEditBtnAction() {
-        ParamForGetOneUser param = new ParamForGetOneUser();
-        param.setSessionId("0123456789abcdef");
-        param.setUserId(Integer.parseInt(userIdTxt.getText()));
 
-        if (router.getUserEditing().render(param)) {
-            router.getUserInfoRoot().setVisible(false);
-            router.getUserEditingRoot().setVisible(true);
-        }
-    }
 }

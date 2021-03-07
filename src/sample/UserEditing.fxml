@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import java.lang.String?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" BorderPane.alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/11.0.1">
+    <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="page-title" text="Edit User"/>
+    <FlowPane prefWidth="200.0">
+        <Button mnemonicParsing="false" text="Back" onAction="#handleBackBtnAction"/>
+        <Button mnemonicParsing="false" text="Save" onAction="#handleSaveBtnAction"/>
+    </FlowPane>
+    <GridPane>
+        <Label text="Profile Picture"/>
+        <Label text="User ID" GridPane.rowIndex="1"/>
+        <Label text="First Name" GridPane.rowIndex="2"/>
+        <Label text="Last Name" GridPane.rowIndex="3"/>
+        <Label text="Email" GridPane.rowIndex="4"/>
+        <Label text="ID Number" GridPane.rowIndex="5"/>
+        <Label text="ID Type" GridPane.rowIndex="6"/>
+        <Label text="Role" GridPane.rowIndex="7"/>
+        <Label text="Status" GridPane.rowIndex="8"/>
+        <Region prefHeight="10.0" prefWidth="0.0" GridPane.rowIndex="9"/>
+        <Label text="Password" GridPane.rowIndex="10"/>
+        <Label text="Confirm Password" GridPane.rowIndex="11"/>
+        <VBox GridPane.columnIndex="1">
+            <ImageView fx:id="profilePicView" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
+                       preserveRatio="true"/>
+            <Button mnemonicParsing="false" text="Choose" onAction="#handleChooseBtnAction"/>
+            <TextField fx:id="profilePicInput" visible="false"/>
+        </VBox>
+        <Text fx:id="userIdTxt" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" GridPane.columnIndex="1"
+              GridPane.rowIndex="1"/>
+        <TextField fx:id="firstNameInput" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <TextField fx:id="lastNameInput" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <TextField fx:id="emailInput" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <TextField fx:id="idNumberInput" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+        <ChoiceBox fx:id="idTypeInput" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="6" value="IC">
+            <String fx:value="IC"/>
+            <String fx:value="Passport"/>
+        </ChoiceBox>
+        <ChoiceBox fx:id="roleInput" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="7" value="Admin">
+            <String fx:value="Admin"/>
+            <String fx:value="Sales Executive"/>
+        </ChoiceBox>
+        <ChoiceBox fx:id="statusInput" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="8" value="Active">
+            <String fx:value="Active"/>
+            <String fx:value="Inactive"/>
+        </ChoiceBox>
+        <PasswordField fx:id="passwordInput" GridPane.columnIndex="1" GridPane.rowIndex="10"/>
+        <PasswordField fx:id="confirmPasswordInput" GridPane.columnIndex="1" GridPane.rowIndex="11"/>
+    </GridPane>
+</VBox>
