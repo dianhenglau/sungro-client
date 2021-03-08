@@ -112,16 +112,16 @@ public class StockInfo {
 
     @FXML
     protected void handleEditBtnAction() {
-        StockTrx stock = tableView.getSelectionModel().getSelectedItem();
+//        StockTrx stock = tableView.getSelectionModel().getSelectedItem();
 
-        if (stock == null) {
-            new Alert(Alert.AlertType.ERROR, "No item selected").showAndWait();
-            return;
-        }
+//        if (stock == null) {
+//            new Alert(Alert.AlertType.ERROR, "No item selected").showAndWait();
+//            return;
+//        }
 
         ParamForGetOneStock param = new ParamForGetOneStock();
         param.setSessionId("0123456789abcdef");
-        param.setSku(stock.getSku());
+        param.setSku(SKUTxt.getText());
 
         if (router.getStockEditing().render(param)) {
             router.getStockInfoRoot().setVisible(false);
