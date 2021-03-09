@@ -27,9 +27,9 @@ public class Main extends Application {
         Repo repo = (Repo) registry.lookup("Repo");
 
         Router router = new Router(repo);
-        router.getLayout().render();
-        router.getUserListing().render(router.getUserListing().generateParam());
-        router.getUserListingRoot().setVisible(true);
+        router.getLogin().render();
+        router.getLayoutRoot().setVisible(false);
+        router.getLoginRoot().setVisible(true);
 
         primaryStage.setTitle("Sun Grocery");
         primaryStage.setScene(router.getScene());

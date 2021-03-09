@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.1">
+    <VBox prefHeight="392.0" prefWidth="600.0">
+        <FlowPane alignment="CENTER" prefHeight="166.0" prefWidth="600.0">
+            <Label text="Login">
+                <font>
+                    <Font name="Calibri Bold" size="70.0"/>
+                </font>
+            </Label>
+        </FlowPane>
+        <GridPane alignment="CENTER" prefHeight="219.0" prefWidth="600.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="294.0" minWidth="10.0" prefWidth="159.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="457.99998474121094" minWidth="10.0"
+                                   prefWidth="440.59999999999997"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="76.0" minHeight="10.0" prefHeight="76.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="61.600007629394526" minHeight="1.4000019073486314"
+                                prefHeight="61.600007629394526" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="67.4" minHeight="10.0" prefHeight="37.399992370605474"
+                                vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <VBox.margin>
+                <Insets top="-30.0"/>
+            </VBox.margin>
+            <Label alignment="CENTER_RIGHT" contentDisplay="TOP" prefHeight="46.0" prefWidth="158.0"
+                   text="Email: " textAlignment="CENTER">
+                <font>
+                    <Font size="25.0"/>
+                </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="151.0" text="Password:"
+                   GridPane.rowIndex="1">
+                <font>
+                    <Font size="25.0"/>
+                </font>
+            </Label>
+            <TextField fx:id="emailTxt" prefHeight="26.0" prefWidth="200.0" GridPane.columnIndex="1">
+                <GridPane.margin>
+                    <Insets right="100.0"/>
+                </GridPane.margin>
+                <font>
+                    <Font size="25.0"/>
+                </font>
+            </TextField>
+            <Button fx:id="loginBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false"
+                    text="Login" GridPane.columnIndex="1" GridPane.rowIndex="2" onAction="#handleLoginBtnAction">
+                <font>
+                    <Font name="System Bold" size="25.0"/>
+                </font>
+                <GridPane.margin>
+                    <Insets left="100.0" top="10.0"/>
+                </GridPane.margin>
+            </Button>
+            <PasswordField fx:id="passwordTxt" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <font>
+                    <Font size="25.0"/>
+                </font>
+                <GridPane.margin>
+                    <Insets right="100.0"/>
+                </GridPane.margin>
+            </PasswordField>
+        </GridPane>
+    </VBox>
+</AnchorPane>

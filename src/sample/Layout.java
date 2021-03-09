@@ -3,14 +3,23 @@ package sample;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import sungro.api.ParamForGetCurrentUser;
+import sungro.api.ParamForLogout;
+import sungro.api.ResultForLogin;
+import sungro.api.ResultForLogout;
+
+import java.io.ByteArrayInputStream;
+import java.rmi.RemoteException;
 
 public class Layout {
     private final Router router;
-
+    @FXML
+    private Text fullName;
     @FXML
     private ImageView profilePicView;
     @FXML
@@ -25,8 +34,14 @@ public class Layout {
         stackPane.getChildren().add(node);
     }
 
-    public void render() {
-        profilePicView.setImage(new Image("profile.png"));
+    public void render(sungro.api.User user) {
+        if (user.getProfilePic().length == 0) {
+            profilePicView.setImage(new Image("profile.png"));
+        } else {
+            profilePicView.setImage(new Image(new ByteArrayInputStream(user.getProfilePic())));
+        }
+        fullName.setText(user.getFirstName() + " " + user.getLastName());
+
     }
 
     @FXML
@@ -72,8 +87,27 @@ public class Layout {
         }
 
         ParamForGetCurrentUser param = new ParamForGetCurrentUser();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         router.getProfile().render(param);
         router.getProfileRoot().setVisible(true);
     }
+
+    @FXML
+    protected void handleLogoutBtnAction() {
+            router.getLoginRoot().setVisible(true);
+            router.getLayoutRoot().setVisible(false);
+            router.getDashboardRoot().setVisible(false);
+    }
+
+    @FXML
+    protected void handleDashboardBtnAction() {
+        for (Node node : stackPane.getChildren()) {
+            node.setVisible(false);
+        }
+
+        router.getDashboard().render();
+        router.getDashboardRoot().setVisible(true);
+    }
+
+
 }

@@ -8,7 +8,7 @@
 <VBox xmlns:fx="http://javafx.com/fxml/1" BorderPane.alignment="TOP_LEFT" xmlns="http://javafx.com/javafx/11.0.1">
     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Users" styleClass="page-title"/>
     <FlowPane>
-        <Button mnemonicParsing="false" text="Back"/>
+        <Button mnemonicParsing="false" text="Back" onAction="#handleBackBtnAction"/>
         <Button mnemonicParsing="false" text="Add User" onAction="#handleAddUserBtnAction"/>
     </FlowPane>
     <FlowPane>

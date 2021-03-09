@@ -95,7 +95,7 @@ public class UserInfo {
     @FXML
     protected void handleEditBtnAction() {
         ParamForGetOneUser param = new ParamForGetOneUser();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setUserId(Integer.parseInt(userIdTxt.getText()));
 
         if (router.getUserEditing().render(param)) {

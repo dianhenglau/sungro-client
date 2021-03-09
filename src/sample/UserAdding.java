@@ -77,7 +77,7 @@ public class UserAdding {
         }
 
         ParamForAddUser param = new ParamForAddUser();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setFirstName(firstNameInput.getText());
         param.setLastName(lastNameInput.getText());
         param.setEmail(emailInput.getText());

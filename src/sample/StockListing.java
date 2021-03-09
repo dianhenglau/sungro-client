@@ -69,7 +69,7 @@ public class StockListing {
     public ParamForGetManyStock generateParam() {
         ParamForGetManyStock param = new ParamForGetManyStock();
 
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setName(nameInput.getText());
         param.setCategory(categoryInput.getText());
         if (expiryDateFromInput.getValue() != null){
@@ -107,7 +107,7 @@ public class StockListing {
         }
 
         ParamForGetManyStockTrx param = new ParamForGetManyStockTrx();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setSku(stock.getSku());
 
         if (router.getStockInfo().render(param)) {
@@ -126,7 +126,7 @@ public class StockListing {
         }
 
         ParamForGetOneStock param = new ParamForGetOneStock();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setSku(stock.getSku());
 
         if (router.getStockEditing().render(param)) {
@@ -145,7 +145,7 @@ public class StockListing {
         }
 
         ParamForDeleteStock param = new ParamForDeleteStock();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setSku(stock.getSku());
 
         try {
@@ -201,5 +201,10 @@ public class StockListing {
         }
 
         render(param);
+    }
+    @FXML
+    protected void handleBackBtnAction() {
+        router.getStockListingRoot().setVisible(false);
+        router.getDashboardRoot().setVisible(true);
     }
 }

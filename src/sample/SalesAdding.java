@@ -113,7 +113,7 @@ public class SalesAdding {
     protected void handleSaveBtnAction() {
 
         ParamForAddSale param = new ParamForAddSale();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setSku(SKUInput.getText());
         param.setSoldQuantity(Integer.parseInt(quantityInput.getText()));
 
@@ -171,7 +171,7 @@ public class SalesAdding {
         public ParamForGetOneStock generateParam() {
             ParamForGetOneStock param = new ParamForGetOneStock();
 
-            param.setSessionId("0123456789abcdef");
+            param.setSessionId(router.getSessionId());
             param.setSku(SKUInput.getText());
 
             return param;

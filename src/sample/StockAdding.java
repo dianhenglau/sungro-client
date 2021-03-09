@@ -60,7 +60,7 @@ public class StockAdding {
     protected void handleSaveBtnAction() {
 
         ParamForAddStock param = new ParamForAddStock();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setProductId(Integer.parseInt(productIdInput.getText()));
         param.setQuantity(Integer.parseInt(quantityInput.getText()));
         param.setExpiryDate(expiryDateInput.getValue());

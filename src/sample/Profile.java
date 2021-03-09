@@ -89,7 +89,7 @@ public class Profile {
     @FXML
     protected void handleBackBtnAction() {
         router.getProfileRoot().setVisible(false);
-        router.getUserListingRoot().setVisible(true);
+        router.getDashboardRoot().setVisible(true);
     }
 
 

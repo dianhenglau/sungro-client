@@ -65,7 +65,7 @@ public class SalesListing {
     public ParamForGetManySales generateParam() {
         ParamForGetManySales param = new ParamForGetManySales();
 
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setSku(SKUInput.getText());
         if(!productIdInput.getText().isBlank()){
             param.setProductId(Integer.parseInt(productIdInput.getText()));
@@ -104,7 +104,7 @@ public class SalesListing {
 //        }
 //
 //        ParamForGetOneSales param = new ParamForGetOneSales();
-//        param.setSessionId("0123456789abcdef");
+//        param.setSessionId(router.getSessionId());
 //        param.setUserId(user.getUserId());
 //
 //        if (router.getUserInfo().render(param)) {
@@ -123,7 +123,7 @@ public class SalesListing {
 //        }
 //
 //        ParamForGetOneUser param = new ParamForGetOneUser();
-//        param.setSessionId("0123456789abcdef");
+//        param.setSessionId(router.getSessionId());
 //        param.setUserId(user.getUserId());
 //
 //        if (router.getUserEditing().render(param)) {
@@ -142,7 +142,7 @@ public class SalesListing {
         }
 
         ParamForDeleteSale param = new ParamForDeleteSale();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setSaleId(sales.getSaleId());
 
         try {
@@ -197,5 +197,11 @@ public class SalesListing {
         }
 
         render(param);
+    }
+
+    @FXML
+    protected void handleBackBtnAction() {
+        router.getSalesListingRoot().setVisible(false);
+        router.getDashboardRoot().setVisible(true);
     }
 }

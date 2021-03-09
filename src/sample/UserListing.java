@@ -70,7 +70,7 @@ public class UserListing {
     public ParamForGetManyUsers generateParam() {
         ParamForGetManyUsers param = new ParamForGetManyUsers();
 
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setName(nameInput.getText());
         param.setEmail(emailInput.getText());
         param.setIdNumber(idNumberInput.getText());
@@ -102,7 +102,7 @@ public class UserListing {
         }
 
         ParamForGetOneUser param = new ParamForGetOneUser();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setUserId(user.getUserId());
 
         if (router.getUserInfo().render(param)) {
@@ -121,7 +121,7 @@ public class UserListing {
         }
 
         ParamForGetOneUser param = new ParamForGetOneUser();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setUserId(user.getUserId());
 
         if (router.getUserEditing().render(param)) {
@@ -167,5 +167,11 @@ public class UserListing {
         }
 
         render(param);
+    }
+
+    @FXML
+    protected void handleBackBtnAction(){
+        router.getUserListingRoot().setVisible(false);
+        router.getDashboardRoot().setVisible(true);
     }
 }

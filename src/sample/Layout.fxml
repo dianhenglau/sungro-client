@@ -10,10 +10,11 @@
         <VBox prefWidth="150.0" styleClass="sidebar" BorderPane.alignment="TOP_LEFT">
             <ImageView fx:id="profilePicView" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true"
                        preserveRatio="true"/>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text"/>
+            <Text fx:id="fullName" strokeType="OUTSIDE" strokeWidth="0.0" text="Text"/>
             <Button maxWidth="Infinity" mnemonicParsing="false"  onAction="#handleProfileBtnAction" text="Profile"/>
-            <Button maxWidth="Infinity" mnemonicParsing="false" text="Log out"/>
+            <Button maxWidth="Infinity" mnemonicParsing="false" text="Log out" onAction="#handleLogoutBtnAction"/>
             <Region prefHeight="10.0" prefWidth="0.0"/>
+            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#handleDashboardBtnAction" text="Dashboard"/>
             <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#handleUsersBtnAction" text="Users"/>
             <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#handleProductBtnAction" text="Products"/>
             <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#handleStockBtnAction" text="Stock"/>

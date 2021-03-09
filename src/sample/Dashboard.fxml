@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/11.0.1">
+    <VBox prefHeight="325.0" prefWidth="600.0">
+        <Label alignment="CENTER" prefHeight="36.0" prefWidth="112.0" text="Dashboard">
+            <font>
+                <Font name="System Bold" size="20.0"/>
+            </font>
+        </Label>
+        <Label alignment="CENTER" prefHeight="18.0" prefWidth="148.0" text="Last 24 Hours Top 5 Sales"/>
+        <TableView fx:id="salesTbl" prefHeight="97.0" prefWidth="400.0">
+            <columns>
+                <TableColumn editable="false" prefWidth="145.59996795654297" sortable="false" text="Product">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="product1" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn editable="false" prefWidth="104.0" sortable="false" text="Amount">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="soldQuantity" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn editable="false" prefWidth="80.00003051757812" sortable="false" text="Total Price (RM)">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="subTotalPrice" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+            <VBox.margin>
+                <Insets right="200.0"/>
+            </VBox.margin>
+        </TableView>
+        <Label text="Newest 5 New Users">
+            <VBox.margin>
+                <Insets top="10.0"/>
+            </VBox.margin>
+        </Label>
+        <TableView fx:id="userTbl" prefHeight="98.0" prefWidth="600.0">
+            <columns>
+                <TableColumn editable="false" sortable="false" text="First Name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="firstName"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn editable="false" sortable="false" text="Last Name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="lastName"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn editable="false" sortable="false" text="Email">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="email"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn editable="false" sortable="false" text="Role">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="role"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn editable="false" sortable="false" text="Joined">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="createdOn"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn editable="false" sortable="false" text="Status">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="status"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </VBox>
+</AnchorPane>

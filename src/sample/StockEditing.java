@@ -72,7 +72,7 @@ public class StockEditing {
     protected void handleSaveBtnAction() {
 
         ParamForSetStock param = new ParamForSetStock();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setSku(SKUTxt.getText());
         if (changeInput.getText().isBlank() ){
             new Alert(Alert.AlertType.ERROR, "quantity varied is empty.").showAndWait();

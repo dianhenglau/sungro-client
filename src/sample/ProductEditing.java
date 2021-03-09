@@ -89,7 +89,7 @@ public class ProductEditing {
     protected void handleSaveBtnAction() {
 
         ParamForSetProduct param = new ParamForSetProduct();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setProductId(Integer.parseInt(productIdTxt.getText()));
         param.setName(productNameInput.getText());
         param.setCategory(categoryInput.getValue());

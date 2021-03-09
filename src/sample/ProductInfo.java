@@ -81,7 +81,7 @@ public class ProductInfo {
     protected void handleEditBtnAction() {
 
         ParamForGetOneProduct param = new ParamForGetOneProduct();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setProductId(Integer.parseInt(productIdTxt.getText()));
 
         if (router.getProductEditing().render(param)) {

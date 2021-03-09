@@ -62,7 +62,7 @@ public class ProductAdding {
     protected void handleSaveBtnAction() {
 
         ParamForAddProduct param = new ParamForAddProduct();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setName(productNameInput.getText());
         param.setCategory(categoryInput.getValue());
         param.setStatus(statusInput.getValue());

@@ -107,7 +107,7 @@ public class UserEditing {
         }
 
         ParamForSetUser param = new ParamForSetUser();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setUserId(Integer.parseInt(userIdTxt.getText()));
         param.setFirstName(firstNameInput.getText());
         param.setLastName(lastNameInput.getText());

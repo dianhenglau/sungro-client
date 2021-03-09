@@ -73,7 +73,7 @@ public class ProductListing {
     public ParamForGetManyProducts generateParam() {
         ParamForGetManyProducts param = new ParamForGetManyProducts();
 
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
 //        param.setName(nameInput.getText());
         param.setCategory(categoryInput.getText());
         param.setStatus(statusInput.getValue());
@@ -104,7 +104,7 @@ public class ProductListing {
         }
 
         ParamForGetOneProduct param = new ParamForGetOneProduct();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setProductId(product.getProductId());
 
         if (router.getProductInfo().render(param)) {
@@ -123,7 +123,7 @@ public class ProductListing {
         }
 
         ParamForGetOneProduct param = new ParamForGetOneProduct();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setProductId(product.getProductId());
 
         if (router.getProductEditing().render(param)) {
@@ -169,5 +169,11 @@ public class ProductListing {
         }
 
         render(param);
+    }
+
+    @FXML
+    protected void handleBackBtnAction() {
+        router.getProductListingRoot().setVisible(false);
+        router.getDashboardRoot().setVisible(true);
     }
 }

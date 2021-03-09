@@ -3,11 +3,14 @@ package sample;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import sungro.api.Repo;
 
 import java.io.IOException;
 
 public class Router {
+    private String sessionId;
+
     private final Repo repo;
     private final Scene scene;
 
@@ -48,8 +51,16 @@ public class Router {
     private final Profile profile;
     private final Parent profileRoot;
 
+    private final Login login;
+    private final Parent loginRoot;
+
+    private final Dashboard dashboard;
+    private final Parent dashboardRoot;
+
     public Router(Repo repo) throws IOException {
         this.repo = repo;
+
+        sessionId = "";
 
         layout = new Layout(this);
         FXMLLoader layoutLoader = new FXMLLoader(getClass().getResource("Layout.fxml"));
@@ -137,7 +148,17 @@ public class Router {
         FXMLLoader profileLoader = new FXMLLoader(getClass().getResource("Profile.fxml"));
         profileLoader.setController(profile);
         profileRoot = profileLoader.load();
+        
+        login = new Login(this);
+        FXMLLoader loginLoader = new FXMLLoader(getClass().getResource("Login.fxml"));
+        loginLoader.setController(login);
+        loginRoot = loginLoader.load();
 
+        dashboard = new Dashboard(this);
+        FXMLLoader dashboardLoader = new FXMLLoader(getClass().getResource("Dashboard.fxml"));
+        dashboardLoader.setController(dashboard);
+        dashboardRoot = dashboardLoader.load();
+        
         layout.addNode(userListingRoot);
         layout.addNode(userInfoRoot);
         layout.addNode(userAddingRoot);
@@ -161,8 +182,23 @@ public class Router {
         layout.addNode(salesListingRoot);
         layout.addNode(salesAddingRoot);
 
-        scene = new Scene(layoutRoot);
+        /*Dashboard*/
+        layout.addNode(dashboardRoot);
+
+        StackPane stackpane = new StackPane();
+        stackpane.getChildren().add(layoutRoot);
+        stackpane.getChildren().add(loginRoot);
+
+        scene = new Scene(stackpane);
         scene.getStylesheets().add("app.css");
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
     public Repo getRepo() {
@@ -304,5 +340,21 @@ public class Router {
 
     public Parent getProfileRoot() {
         return profileRoot;
+    }
+
+    public Login getLogin() {
+        return login;
+    }
+
+    public Parent getLoginRoot() {
+        return loginRoot;
+    }
+
+    public Dashboard getDashboard() {
+        return dashboard;
+    }
+
+    public Parent getDashboardRoot() {
+        return dashboardRoot;
     }
 }

@@ -52,7 +52,7 @@ public class StockInfo {
     public boolean render(ParamForGetManyStockTrx param) {
         try {
 //            ParamForGetManyStockTrx param = new ParamForGetManyStockTrx();
-//            param.setSessionId("0123456789abcdef");
+//            param.setSessionId(router.getSessionId());
 //            param.setSku(param.getSku());
             ResultForGetManyStockTrx result = router.getRepo().getManyStockTrx(param);
 
@@ -62,7 +62,7 @@ public class StockInfo {
             }
 
             ParamForGetOneStock param1 = new ParamForGetOneStock();
-            param1.setSessionId("0123456789abcdef");
+            param1.setSessionId(router.getSessionId());
             param1.setSku(param.getSku());
             ResultForGetOneStock result1 = router.getRepo().getOneStock(param1);
 
@@ -103,7 +103,7 @@ public class StockInfo {
     public ParamForGetManyStockTrx generateParam() {
         ParamForGetManyStockTrx param = new ParamForGetManyStockTrx();
 
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setSku(SKUTxt.getText());
         param.setPage(Integer.parseInt(currentPageTxt.getText().trim()));
 
@@ -120,7 +120,7 @@ public class StockInfo {
         }
 
         ParamForGetOneStock param = new ParamForGetOneStock();
-        param.setSessionId("0123456789abcdef");
+        param.setSessionId(router.getSessionId());
         param.setSku(stock.getSku());
 
         if (router.getStockEditing().render(param)) {
