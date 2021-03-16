@@ -30,8 +30,6 @@
     <FlowPane alignment="TOP_RIGHT">
         <Button fx:id="viewBtn" mnemonicParsing="false" text="View" onAction="#handleViewBtnAction"/>
         <Button fx:id="editBtn" mnemonicParsing="false" text="Edit" onAction="#handleEditBtnAction"/>
-        <Button fx:id="toggleStatusBtn" mnemonicParsing="false" text="Toggle Status"
-                onAction="#handleToggleStatusBtnAction"/>
     </FlowPane>
     <TableView fx:id="tableView" VBox.vgrow="ALWAYS">
         <columns>
