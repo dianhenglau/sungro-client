@@ -34,6 +34,12 @@ public class Layout {
         stackPane.getChildren().add(node);
     }
 
+    public void hideAllNodes() {
+        for (Node node: stackPane.getChildren()) {
+            node.setVisible(false);
+        }
+    }
+
     public void render(sungro.api.User user) {
         if (user.getProfilePic().length == 0) {
             profilePicView.setImage(new Image("profile.png"));

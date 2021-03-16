@@ -60,6 +60,7 @@ public class Login {
             router.setSessionId(result.getSessionId());
 
             router.getLayout().render(result.getUser());
+            router.getLayout().hideAllNodes();
             router.getDashboard().render();
             router.getLoginRoot().setVisible(false);
             router.getLayoutRoot().setVisible(true);
