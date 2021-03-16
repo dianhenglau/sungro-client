@@ -68,7 +68,6 @@ public class ProductAdding {
         param.setStatus(statusInput.getValue());
         param.setProductPrice(new BigDecimal (priceInput.getText()));
 
-
         if (!productPicInput.getText().isEmpty()) {
             try {
                 param.setProductPic(Files.readAllBytes(Paths.get(productPicInput.getText())));

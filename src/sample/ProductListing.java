@@ -16,8 +16,8 @@ import java.rmi.RemoteException;
 public class ProductListing {
     private final Router router;
 
-//    @FXML
-//    private TextField nameInput;
+    @FXML
+    private TextField nameInput;
     @FXML
     private TextField categoryInput;
 //    @FXML
@@ -74,7 +74,7 @@ public class ProductListing {
         ParamForGetManyProducts param = new ParamForGetManyProducts();
 
         param.setSessionId(router.getSessionId());
-//        param.setName(nameInput.getText());
+        param.setName(nameInput.getText());
         param.setCategory(categoryInput.getText());
         param.setStatus(statusInput.getValue());
         param.setPage(Integer.parseInt(currentPageTxt.getText().trim()));
@@ -130,11 +130,6 @@ public class ProductListing {
             router.getProductListingRoot().setVisible(false);
             router.getProductEditingRoot().setVisible(true);
         }
-    }
-
-    @FXML
-    protected void handleToggleStatusBtnAction() {
-
     }
 
     @FXML

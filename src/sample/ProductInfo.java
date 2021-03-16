@@ -12,6 +12,7 @@ import sungro.api.ResultForGetOneProduct;
 import java.io.ByteArrayInputStream;
 import java.math.BigDecimal;
 import java.rmi.RemoteException;
+import java.time.format.DateTimeFormatter;
 
 public class ProductInfo {
     private final Router router;
@@ -66,7 +67,7 @@ public class ProductInfo {
             categoryTxt.setText(product.getCategory());
             priceTxt.setText(String.valueOf(product.getProductPrice()));
             createdByUserNameTxt.setText(product.getCreatedByUserName());
-            createdOnTxt.setText(product.getCreatedOn().toString());
+            createdOnTxt.setText(product.getCreatedOn().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 
             return true;
 
